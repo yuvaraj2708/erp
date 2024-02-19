@@ -275,170 +275,225 @@
                 </div>
               
                 <div class="card-body p-3">
-                    <div class="row">
+                  <div class="row">
                       <div class="col-md-4 mb-md-0 mb-4">
-                        <label>Client Name</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            {{form.client}}
-                         
-                        </div>
-                        
+                          <label>Client Name</label>
+                          <div class="card card-body d-flex align-items-center">
+                              
+                              {{ form.new_client }}
+                              {{ form.existing_clients }}
+                          </div>
                       </div>
-                      <div class="col-md-4">
+                    <div class="col-md-4">
                         <label>Building Name</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            {{form.building}}
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label for="id_projectype">Project Type:</label>
-                        <select name="projectype" id="id_projectype" onchange="handleProjectTypeChange()">
-                          <option value="" selected disabled>Select Type</option>
-                          <option value="AMC">AMC</option>
-                          <option value="LPO">LPO</option>
-                          <option value="Workloader">Workloader</option>
-                        </select>
-                    
-                        <!-- Fields specific to AMC -->
-                        <div id="amcFields" style="display: none;">
-                          <label for="id_amc_start_date">AMC Start Date:</label>
-                          <input type="date" name="amc_start_date" id="id_amc_start_date">
-                          
-                          <label for="id_amc_end_date">AMC End Date:</label>
-                          <input type="date" name="amc_end_date" id="id_amc_end_date">
-                          
-                          <label for="id_yearly_cycle">Yearly Cycle:</label>
-                          <select name="yearly_cycle" id="id_yearly_cycle" onchange="handleYearlyCycleChange()">
-                            <option value="" selected disabled>Select Type</option>
-                            <option value="Yearly 1">Yearly 1</option>
-                            <option value="Yearly 2">Yearly 2</option>
-                            <option value="Yearly 3">Yearly 3</option>
-                            <option value="Yearly 4">Yearly 4</option>
-                          </select>
-                        </div>
-                    
-                        <!-- Fields specific to LPO -->
-                        <div id="lpoFields" style="display: none;">
-                          <label for="id_lpo_field">LPO Field:</label>
-                          <input type="text" name="lpo_field" id="id_lpo_field">
-                        </div>
-                    
-                        <!-- Fields specific to Workloader -->
-                        <div id="workloaderFields" style="display: none;">
-                          <label for="id_workloader_type">Workloader Type:</label>
-                          <select name="workloader_type" id="id_workloader_type" onchange="handleWorkloaderTypeChange()">
-                            <option value="" selected disabled>Select Type</option>
-                            <option value="Normal 2">Normal 2</option>
-                            <option value="Normal 3">Normal 3</option>
-                            <option value="Critical">Critical</option>
-                          </select>
+                        <div class="card card-body d-flex align-items-center">
+                          {{ form.new_building }}
+                          {{ form.existing_buildings }}
                         </div>
                     </div>
-                    
-                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                  
-                    
-                     
                       <div class="col-md-4">
-                        <label>cradle_number</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="cradle_number" value={{project.cradle_number}} class="form-control" placeholder="Enter cradle number">
-                        </div>
-                      </div>
+                        <label for="id_projectype">Project Type:</label>
+    <select name="projectype" id="id_projectype"  value="{{project.projectype}}" class='form-control' onchange="handleProjectTypeChange()">
+      <option value="" selected disabled>Select Project Type</option>
+      <option value="AMC">AMC</option>
+      <option value="LPO">LPO</option>
+      <option value="Workorder">Workorder</option>
+    </select>
+
+    <!-- Fields specific to AMC -->
+    <div id="amcFields" style="display: none;">
+      <label for="id_amc_start_date">AMC Start Date:</label>
+      <input type="date" value="{{project.amc_start_date}}"  name="amc_start_date" id="id_amc_start_date">
+      
+      <label for="id_amc_end_date">AMC End Date:</label>
+      <input type="date" value="{{project.amc_end_date}}" name="amc_end_date" id="id_amc_end_date">
+      
+      <label for="id_yearly_cycle">Yearly Cycle:</label>
+      <select name="yearly_cycle" id="id_yearly_cycle" onchange="handleYearlyCycleChange()">
+        <option value="" selected disabled>Select Year Type</option>
+        <option value="Yearly 1">Yearly 1</option>
+        <option value="Yearly 2">Yearly 2</option>
+        <option value="Yearly 3">Yearly 3</option>
+        <option value="Yearly 4">Yearly 4</option>
+      </select>
+    </div>
+
+    <!-- Fields specific to LPO -->
+    <div id="lpoFields" style="display: none;">
+      <label for="id_lpo_field">LPO Field:</label>
+      <input type="text" value="{{project.lpo_field}}" name="lpo_field" id="id_lpo_field">
+    </div>
+
+    <!-- Fields specific to Workorder -->
+    <div id="WorkorderFields" style="display: none;">
+      <label for="id_Workorder_type">Workorder Type:</label>
+      <select name="Workorder_type" value="{{project.Workorder_type}}" id="id_Workorder_type" onchange="handleWorkorderTypeChange()">
+        <option value="" selected disabled>Select Type</option>
+        <option value="Normal 2">Normal 2</option>
+        <option value="Normal 3">Normal 3</option>
+        <option value="Critical">Critical</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label>Cradle/Rope/SubContractor</label>
+    <div class="card card-body d-flex align-items-center">
+      <select id="cradleSelect" value="{{project.cradle_number}}" name="cradle_number" class="form-control" onchange="handleCradleChange()">
+            <option value="" selected disabled>Select Type</option>
+            <optgroup label="Cradle">
+                <option value="ManualCradle">Manual Cradle</option>
+                <option value="BuildingCradle">Building Cradle</option>
+            </optgroup>
+            <option value="Rope">Rope</option>
+            <option value="Scaffolding">Scaffolding</option>
+            <option value="BoomLift">BoomLift</option>
+            <option value="SubContractor">SubContractor</option>
+        </select>
+        <div id="cradleNumberInput" style="display: none;">
+            <label for="cradleNumber">Cradle Number</label>
+            <input type="text" value="{{project.cradle_number_input}}" name="cradle_number_input" class="form-control">
+        </div>
+    </div>
+</div>
+
                       <div class="col-md-4">
                         <label>starting_date</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="date" name="starting_date" value={{project.starting_date}} class="form-control" placeholder="Enter starting date">
+                            <input type="date" value="{{project.starting_date}}" name="starting_date" class="form-control" placeholder="Enter starting date">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>finishing_date</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="date" name="finishing_date" value={{project.finishing_date}} class="form-control" placeholder="Enter finishing date">
+                            <input type="date" value="{{project.finishing_date}}" name="finishing_date" class="form-control" placeholder="Enter finishing date">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>number_of_days</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="number_of_days" value={{project.number_of_days}} class="form-control" placeholder="Enter number of days">
+                            <input type="text" value="{{project.number_of_days}}" name="number_of_days" class="form-control" placeholder="Enter number of days">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>team</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="team" value={{project.team}} class="form-control" placeholder="Enter team Name">
+                            <input type="text" value="{{project.team}}" name="team" class="form-control" id="team" placeholder="Enter team Name">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Subcontractor Name</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          {{ form.new_subcontrator }}
+                          {{ form.existing_subcontrators }}
+                         </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Building type</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" value="{{project.Buildingtype}}" name="Buildingtype" class="form-control" placeholder="Enter Building Type">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>No of Floors</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" value="{{project.No_of_Floors}}" name="No_of_Floors" class="form-control" placeholder="Enter No of floors">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>materials_used</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="materials_used"  value={{project.materials_used}} class="form-control" placeholder="Enter materials used">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>receipt</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="receipt"  value={{project.receipt}} class="form-control" placeholder="Enter receipt">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>invoice_number</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="invoice_number" value={{project.invoice_number}} class="form-control" placeholder="Enter invoice number">
+                            <input type="text" value="{{project.materials_used}}" name="materials_used" class="form-control" placeholder="Enter materials used">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>vat</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="vat" value={{project.vat}} class="form-control" placeholder="Enter vat">
+                            <input type="text" value="{{project.vat}}" name="vat" class="form-control" placeholder="Enter vat">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>amount</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="amount" value={{project.amount}} class="form-control" placeholder="Enter amount">
+                            <input type="text" value="{{project.amount}}" name="amount" class="form-control" placeholder="Enter amount">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>total_amount</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="total_amount" value={{project.total_amount}} class="form-control" placeholder="Enter total amount">
+                            <input type="text" value="{{project.total_amount}}" name="total_amount" class="form-control" placeholder="Enter total amount">
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label>income</label>
+                        <label>Payment Received</label>
                         <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="income" value={{project.income}} class="form-control" placeholder="Enter income">
+                            <input type="text" value="{{project.payment_received}}" name="payment_received" class="form-control" placeholder="Enter income">
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label>receivable_pending</label>
+                        <label>Received Date</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="receivable_pending" value={{project.receivable_pending}} class="form-control" placeholder="Enter receivable pending">
+                            <input type="text" value="{{project.received_date}}" name="received_date" class="form-control" placeholder="Enter income">
+                        </div>
+                      </div>
+                    
+                      <div class="col-md-4">
+                        <label>Bank Name</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          <select class='form-control' value="{{project.bank_name}}" name="bank_name">
+                            <option value="" selected disabled>Select Type</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Bank 1">Bank 1</option>
+                            <option value="Bank 2">Bank 2</option>
+                          </select>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>comments</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="comments" value={{project.comments}} class="form-control" placeholder="Enter comments">
+                            <input type="text" value="{{project.comments}}" name="comments" class="form-control" placeholder="Enter comments">
                         </div>
                       </div>
+                      <div class="col-md-4">
+                        <label>receipt</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" value="{{project.receipt}}" name="receipt" class="form-control" placeholder="Enter receipt">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>invoice_number</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" value="{{project.invoice_number}}" name="invoice_number" class="form-control" placeholder="Enter invoice number">
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <label>Payable Pending</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" value="{{project.Payable_Pending}}" name="Payable_Pending" class="form-control" id="payablepending" placeholder="Enter Payable Pending" style="display: none;">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Subcontrator invoice</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          <input type="text" value="{{project.Subcontrator_invoice}}" name="Subcontrator_invoice" id="subcontractorInvoice" class="form-control" placeholder="Enter Subcontrator Invoice Number" style="display: none;">
+                        </div>
+                      </div>
+                     
 
                   </div>
                   
@@ -460,66 +515,86 @@
       </div>
     
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-  function handleProjectTypeChange() {
-    var projectType = document.getElementById('id_projectype').value;
-    document.getElementById('amcFields').style.display = (projectType === 'AMC') ? 'block' : 'none';
-    document.getElementById('lpoFields').style.display = (projectType === 'LPO') ? 'block' : 'none';
-    document.getElementById('workloaderFields').style.display = (projectType === 'Workloader') ? 'block' : 'none';
-  }
+    function handleProjectTypeChange() {
+      var projectType = document.getElementById('id_projectype').value;
+      document.getElementById('amcFields').style.display = (projectType === 'AMC') ? 'block' : 'none';
+      document.getElementById('lpoFields').style.display = (projectType === 'LPO') ? 'block' : 'none';
+      document.getElementById('workloaderFields').style.display = (projectType === 'Workloader') ? 'block' : 'none';
+    }
 
-  function handleYearlyCycleChange() {
-    var yearlyCycle = document.getElementById('id_yearly_cycle').value;
-    // Add logic to show pop-up based on yearlyCycle value
-    alert('Show pop-up for Yearly Cycle: ' + yearlyCycle);
+    function handleYearlyCycleChange() {
+      var yearlyCycle = document.getElementById('id_yearly_cycle').value;
+      // Add logic to show pop-up based on yearlyCycle value
+      alert('Show pop-up for Yearly Cycle: ' + yearlyCycle);
 
-    // Check every 3 months (90 days)
-    scheduleNotification('Notify every 3 months for Yearly Cycle: ' + yearlyCycle, 90);
-  }
+      // Check every 3 months (90 days)
+      scheduleNotification('Notify every 3 months for Yearly Cycle: ' + yearlyCycle, 90);
+    }
 
-  function handleWorkloaderTypeChange() {
-    var workloaderType = document.getElementById('id_workloader_type').value;
-    // Add logic to show pop-up based on workloaderType value
-    alert('Show pop-up for Workloader Type: ' + workloaderType);
+    function handleWorkloaderTypeChange() {
+      var workloaderType = document.getElementById('id_workloader_type').value;
+      // Add logic to show pop-up based on workloaderType value
+      alert('Show pop-up for Workloader Type: ' + workloaderType);
 
-    // Add additional logic based on the selected workloaderType
-    // Check every 25, 41, or 11 days accordingly
-    var daysInterval = (workloaderType === 'Normal 2') ? 25 : (workloaderType === 'Normal 3') ? 41 : 11;
+      // Add additional logic based on the selected workloaderType
+      // Check every 25, 41, or 11 days accordingly
+      var daysInterval = (workloaderType === 'Normal 2') ? 25 : (workloaderType === 'Normal 3') ? 41 : 11;
 
-    scheduleNotification('Notify every ' + daysInterval + ' days for Workloader Type: ' + workloaderType, daysInterval);
-  }
+      scheduleNotification('Notify every ' + daysInterval + ' days for Workloader Type: ' + workloaderType, daysInterval);
+    }
 
-  function scheduleNotification(message, days) {
-    setTimeout(function() {
-      if (Notification.permission === 'granted') {
-        var notification = new Notification('Project Notification', {
-          body: message,
+    function scheduleNotification(message, days) {
+      setTimeout(function() {
+        if (Notification.permission === 'granted') {
+          var notification = new Notification('Project Notification', {
+            body: message,
+          });
+        } else if (Notification.permission !== 'denied') {
+          Notification.requestPermission().then(function(permission) {
+            if (permission === 'granted') {
+              var notification = new Notification('Project Notification', {
+                body: message,
+              });
+            }
+          });
+        }
+      }, days * 24 * 60 * 60 * 1000); // Convert days to milliseconds
+    }
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var cradleSelect = document.getElementById('cradleSelect');
+        var cradleNumberInput = document.getElementById('cradleNumberInput');
+
+        cradleSelect.addEventListener('change', function () {
+            var selectedValue = cradleSelect.value;
+
+            if (selectedValue === 'ManualCradle') {
+                cradleNumberInput.style.display = 'block';
+            } else {
+                cradleNumberInput.style.display = 'none';
+            }
         });
-      } else if (Notification.permission !== 'denied') {
-        Notification.requestPermission().then(function(permission) {
-          if (permission === 'granted') {
-            var notification = new Notification('Project Notification', {
-              body: message,
-            });
-          }
-        });
-      }
-    }, days * 24 * 60 * 60 * 1000); // Convert days to milliseconds
-  }
+    });
 </script>
 <script>
-  function showSubmitNotification() {
-    var clientName = document.getElementById('id_client_name').value;
-    var buildingName = document.getElementById('id_building_name').value;
-    var projectType = document.getElementById('id_projectype').value;
+  function handleCradleChange() {
+      var cradleSelect = document.getElementById("cradleSelect");
+      var subcontractorNameInput = document.getElementById("subcontractorName");
+      var subcontractorInvoiceInput = document.getElementById("subcontractorInvoice");
+      var teamInput = document.getElementById("team");
 
-    var message = 'Client: ' + clientName + '\nBuilding: ' + buildingName + '\nProject Type: ' + projectType;
-
-    // Display pop-up notification after form submission
-    alert('Project submitted successfully!\n' + message);
-
-    // You can also schedule a notification using the scheduleNotification function if needed
-    scheduleNotification('Project submitted successfully!\n' + message, 0);  // Set days to 0 for an immediate notification
+      // Check if the selected value is "SubContractor"
+      if (cradleSelect.value === "SubContractor") {
+          subcontractorNameInput.style.display = "block";
+          subcontractorInvoiceInput.style.display = "block";
+          teamInput.style.display = "none";
+      } else {
+          subcontractorNameInput.style.display = "none";
+          subcontractorInvoiceInput.style.display = "none";
+      }
   }
 </script>
 {% endblock %}

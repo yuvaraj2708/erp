@@ -249,40 +249,74 @@
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
+       <form method="GET" action="{% url 'project_list' %}">
       <div class="row">
+       
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="from_date">From Date:</label>
+            <input type="date" class="form-control" name="from_date" id="from_date">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="to_date">To Date:</label>
+            <input type="date" class="form-control" name="to_date" id="to_date">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary mt-4">Search</button>
+          </div>
+        </div>
         <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-              <h6>Authors table</h6>
-            </div>
-            <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
+          {% regroup Projectlist by starting_date|date:"F Y" as project_list_by_month %}
+          {% for month in project_list_by_month %}
+            <div class="card mb-4">
+              <div class="card-header pb-0">
+                <h6>{{ month.grouper }}</h6>
+              </div>
+              <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                  <table class="table align-items-center mb-0">
+                    <thead>
                     <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Client</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Building</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Projectype</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cradle number</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cradle</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cradle Number</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Starting date</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Finishing date</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Number of days</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Team</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subcontractor Name</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Building Type</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No of Floors</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Materials used</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Receipt</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Invoice number</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vat</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Total amount</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Income</th>
-                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Receivable pending</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">vat</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total amount</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Payment Received</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Received Date</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bank Name</th>
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Comments</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Receipt</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Invoice Number</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Payable Pending</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subcontrator invoice</th>
+
                     </tr>
                   </thead>
                   <tbody>
-                    {% for Projectlist in Projectlist %}
+                    {% regroup month.list by projectype as project_list_by_type %}
+                    {% for project_type in project_list_by_type %}
+                    {% for Projectlist in month.list %}
                     <tr>
-                      <d></td>
+                     
+                  </tr>
+                    <tr>
+                     
                       <td>
                         <p class="text-xs font-weight-bold mb-0">{{Projectlist.client}}</p>
                       </td>
@@ -296,6 +330,9 @@
                         <p class="text-xs font-weight-bold mb-0">{{Projectlist.cradle_number}}</p>
                       </td>
                       <td>
+                        <p class="text-xs font-weight-bold mb-0">{{Projectlist.cradle_number_input}}</p>
+                      </td>
+                      <td>
                         <p class="text-xs font-weight-bold mb-0">{{Projectlist.starting_date}}</p>
                       </td>
                       <td>
@@ -307,6 +344,14 @@
                       <td>
                         <p class="text-xs font-weight-bold mb-0">{{Projectlist.team}}</p>
                       </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{Projectlist.SubcontratorName}}</p>
+                        <td>
+                          <p class="text-xs font-weight-bold mb-0">{{Projectlist.Buildingtype}}</p>
+                        </td>
+                        <td>
+                          <p class="text-xs font-weight-bold mb-0">{{Projectlist.No_of_Floors}}</p>
+                        </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0">{{Projectlist.materials_used}}</p>
                       </td>
@@ -326,7 +371,13 @@
                         <p class="text-xs font-weight-bold mb-0">{{Projectlist.total_amount}}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{Projectlist.income}}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{Projectlist.payment_received}}</p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{Projectlist.received_used}}</p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{Projectlist.bank_name}}</p>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0">{{Projectlist.receivable_pending}}</p>
@@ -335,17 +386,26 @@
                         <p class="text-xs font-weight-bold mb-0">{{Projectlist.comments}}</p>
                       </td>
                       <td>
+                        <p class="text-xs font-weight-bold mb-0">{{Projectlist.Payable_Pending}}</p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{Projectlist.Subcontrator_invoice}}</p>
+                      </td>
+                      <td>
                       <a href="{% url 'edit_project' Projectlist.id %}" class="btn btn-success">Edit</a>
                       </td>
                     </tr>
                 
                     {% endfor %}
+                     {% endfor %}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
+          {% endfor %}
         </div>
+      </form>
       </div>
 
 {% endblock %}

@@ -22,8 +22,8 @@ from django.contrib import messages
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import timedelta
-
+from datetime import timedelta,datetime
+from django.db.models import Q
 
 
 def login_view(request):
@@ -173,21 +173,72 @@ def supplier_list(request):
 def add_project(request):
     clients = Client.objects.all()
     buildings = Building.objects.all()
+    suppliers = Supplier.objects.all()
 
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
-            project = form.save(commit=False)  # Save the form data without committing to the database
+            project = form.save(commit=False)
 
-            project.save()  # Now, save the main project data to the database
+            # Check if an existing client is selected
+            if form.cleaned_data['existing_clients']:
+                project.client = form.cleaned_data['existing_clients']
+            else:
+                # Use the new client name if an existing client is not selected
+                new_client_name = form.cleaned_data['new_client']
 
-            return redirect('project_list')  # Change 'project_list' to your actual project list URL
+                # Check if the client with the given name already exists
+                existing_client = Client.objects.filter(clientname=new_client_name).first()
+
+                if existing_client:
+                    project.client = existing_client
+                else:
+                    # Create a new client and assign it to the project
+                    new_client = Client.objects.create(clientname=new_client_name)
+                    project.client = new_client
+
+            # Check if an existing building is selected
+            if form.cleaned_data['existing_buildings']:
+                project.building = form.cleaned_data['existing_buildings']
+            else:
+                # Use the new building name if an existing building is not selected
+                new_building_name = form.cleaned_data['new_building']
+
+                # Check if the building with the given name already exists
+                existing_building = Building.objects.filter(building_name=new_building_name).first()
+
+                if existing_building:
+                    project.building = existing_building
+                else:
+                    # Create a new building and assign it to the project
+                    new_building = Building.objects.create(building_name=new_building_name)
+                    project.building = new_building
+
+                 # supplier
+                if form.cleaned_data['existing_subcontrators']:
+                   project.SubcontratorName = form.cleaned_data['existing_subcontrators']
+                else:
+                # Use the new building name if an existing building is not selected
+                    new_supplier_name = form.cleaned_data['new_subcontrator']
+
+                # Check if the building with the given name already exists
+                    existing_subcontrators = Supplier.objects.filter(supplier_name=new_supplier_name).first()
+
+                    if existing_subcontrators:
+                        project.SubcontratorName = existing_subcontrators
+                    else:
+                        # Create a new building and assign it to the project
+                        new_subcontrator = Supplier.objects.create(supplier_name=new_supplier_name)
+                        project.SubcontratorName = new_subcontrator
+
+            project.save()
+            return redirect('project_list')
         else:
-            print(form.errors)  # Add this line to debug form errors
+            print(form.errors)
     else:
         form = ProjectForm()
 
-    return render(request, 'add_project.html', {'form': form, 'clients': clients, 'buildings': buildings})
+    return render(request, 'add_project.html', {'form': form, 'clients': clients, 'buildings': buildings, 'suppliers': suppliers})
 
 @login_required
 def edit_project(request, project_id):
@@ -249,7 +300,17 @@ def businessdevelopment_list(request):
 
 @login_required
 def project_list(request):
-    Projectlist = Project.objects.all()
+    from_date = request.GET.get('from_date')
+    to_date = request.GET.get('to_date')
+
+    if from_date and to_date:
+        Projectlist = Project.objects.filter(
+            Q(starting_date__gte=from_date) &
+            Q(finishing_date__lte=to_date)
+        )
+    else:
+        Projectlist = Project.objects.all()
+
     return render(request, 'project_list.html', {'Projectlist': Projectlist})
 
 @login_required
@@ -272,6 +333,8 @@ def add_attendance(request):
         attendance_date = request.POST.get('date', None)
 
         if attendance_date:
+            today_date = datetime.today().strftime('%Y-%m-%d')
+
             for employee in employees:
                 present_key = f"present_{employee.id}"
                 leave_key = f"leave_{employee.id}"
@@ -281,9 +344,10 @@ def add_attendance(request):
                 leave = request.POST.get(leave_key)
                 reason = request.POST.get(reason_key, "")
 
+                # Get today's attendance record or create a new one
                 attendance, created = Attendance.objects.get_or_create(
                     employee=employee,
-                    date=attendance_date,
+                    date=today_date,
                     defaults={'present': False, 'leave': False, 'reason': ""}
                 )
 

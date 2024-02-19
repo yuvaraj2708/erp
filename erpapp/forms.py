@@ -13,14 +13,26 @@ class BuildingForm(forms.ModelForm):
         self.fields['building_name'].widget.attrs.update({'class': 'form-control'})       
 
 class ProjectForm(forms.ModelForm):
+    existing_clients = forms.ModelChoiceField(queryset=Client.objects.all(), required=False, empty_label="Select existing client")
+    new_client = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Client'}))
+    new_building = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Building'}))
+    existing_buildings = forms.ModelChoiceField(queryset=Building.objects.all(), required=False, empty_label="Select existing Building")
+    new_subcontrator = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter new_subcontrator'}))
+    existing_subcontrators = forms.ModelChoiceField(queryset=Supplier.objects.all(), required=False, empty_label="Select existing new_subcontrator")
+
     class Meta:
         model = Project
         fields = '__all__'
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['client'].widget.attrs.update({'class': 'form-control'}) 
+        for field_name, field in self.fields.items():
+            field.required = False
+        self.fields['client'].widget.attrs.update({'class': 'form-control'})
         self.fields['building'].widget.attrs.update({'class': 'form-control'})
-        
+        self.fields['existing_subcontrators'].widget.attrs.update({'class': 'form-control'})
+        self.fields['existing_buildings'].widget.attrs.update({'class': 'form-control'})
+        self.fields['existing_clients'].widget.attrs.update({'class': 'form-control'})
 
        
  

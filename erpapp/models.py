@@ -26,29 +26,37 @@ class Building(models.Model):
         return self.building_name
 
 class Project(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    building = models.ForeignKey(Building, on_delete=models.CASCADE)
+    client = models.CharField(max_length=50)
+    building = models.CharField(max_length=50)
     PROJECT_TYPE_CHOICES = [
     ('AMC', 'AMC'),
     ('LPO', 'LPO'),
-    ('Workloader', 'Workloader'),
+    ('Workorder', 'Workorder'),
     ]
     projectype = models.CharField(max_length=20, choices=PROJECT_TYPE_CHOICES)
-    
     cradle_number = models.CharField(max_length=50)
-    starting_date = models.DateField()
-    finishing_date = models.DateField()
+    starting_date = models.DateField(null=True, blank=True)
+    finishing_date = models.DateField(null=True, blank=True)
     number_of_days = models.IntegerField()
     team = models.CharField(max_length=255)
+    SubcontratorName = models.CharField(max_length=255)
+    Buildingtype = models.CharField(max_length=255)
+    No_of_Floors = models.CharField(null=True,max_length=255)
     materials_used = models.TextField()
     receipt = models.CharField(max_length=50)
     invoice_number = models.CharField(max_length=50)
     vat = models.DecimalField(max_digits=5, decimal_places=2)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    income = models.DecimalField(max_digits=10, decimal_places=2)
-    receivable_pending = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_received = models.CharField(max_length=255)
+    received_date = models.CharField(max_length=255)
+    bank_name= models.CharField(max_length=255)
+    receivable_pending = models.CharField(max_length=255)
     comments = models.TextField()
+    Payable_Pending = models.CharField(max_length=255)
+    Subcontrator_invoice = models.CharField(max_length=255)
+    cradle_number_input = models.CharField(max_length=255)
+
 
     # Fields specific to AMC
     amc_start_date = models.DateField(null=True, blank=True)
@@ -59,7 +67,7 @@ class Project(models.Model):
     lpo_field = models.CharField(max_length=50, null=True, blank=True)
 
     # Fields specific to Workloader
-    workloader_type = models.CharField(max_length=50, choices=[('Normal 2', 'Normal 2'), ('Normal 3', 'Normal 3'), ('Critical', 'Critical')], null=True, blank=True)   
+    workorder_type = models.CharField(max_length=50, choices=[('Normal 2', 'Normal 2'), ('Normal 3', 'Normal 3'), ('Critical', 'Critical')], null=True, blank=True)   
 
 class Supplierproject(models.Model):    
    Building_Name = models.ForeignKey(Building, on_delete=models.CASCADE)

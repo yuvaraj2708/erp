@@ -285,7 +285,7 @@
                 <div class="card-header pb-0 p-3">
                   <div class="row">
                     <div class="col-6 d-flex align-items-center">
-                      <h6 class="mb-0">Add Supplier</h6>
+                      <h6 class="mb-0">Add Client Project</h6>
                     </div>
                     <div class="col-6 text-end">
                        
@@ -295,30 +295,29 @@
                 </div>
               
                 <div class="card-body p-3">
-                    <div class="row">
+                  <div class="row">
                       <div class="col-md-4 mb-md-0 mb-4">
-                        <label>Client Name</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            {{form.client}}
-                         
-                        </div>
-                        
+                          <label>Client Name</label>
+                          <div class="card card-body d-flex align-items-center">
+                              
+                              {{ form.new_client }}
+                              {{ form.existing_clients }}
+                          </div>
                       </div>
-                      <div class="col-md-4">
+                    <div class="col-md-4">
                         <label>Building Name</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            {{form.building}}
+                        <div class="card card-body d-flex align-items-center">
+                          {{ form.new_building }}
+                          {{ form.existing_buildings }}
                         </div>
-                      </div>
+                    </div>
                       <div class="col-md-4">
                         <label for="id_projectype">Project Type:</label>
-    <select name="projectype" id="id_projectype" onchange="handleProjectTypeChange()">
+    <select name="projectype" id="id_projectype" class='form-control' onchange="handleProjectTypeChange()">
       <option value="" selected disabled>Select Project Type</option>
       <option value="AMC">AMC</option>
       <option value="LPO">LPO</option>
-      <option value="Workloader">Workloader</option>
+      <option value="Workorder">Workorder</option>
     </select>
 
     <!-- Fields specific to AMC -->
@@ -345,10 +344,10 @@
       <input type="text" name="lpo_field" id="id_lpo_field">
     </div>
 
-    <!-- Fields specific to Workloader -->
-    <div id="workloaderFields" style="display: none;">
-      <label for="id_workloader_type">Workloader Type:</label>
-      <select name="workloader_type" id="id_workloader_type" onchange="handleWorkloaderTypeChange()">
+    <!-- Fields specific to Workorder -->
+    <div id="WorkorderFields" style="display: none;">
+      <label for="id_Workorder_type">Workorder Type:</label>
+      <select name="Workorder_type" id="id_Workorder_type" onchange="handleWorkorderTypeChange()">
         <option value="" selected disabled>Select Type</option>
         <option value="Normal 2">Normal 2</option>
         <option value="Normal 3">Normal 3</option>
@@ -356,13 +355,27 @@
       </select>
     </div>
   </div>
-                      <div class="col-md-4">
-                        <label>cradle_number</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="cradle_number" class="form-control" placeholder="Enter cradle number">
-                        </div>
-                      </div>
+  <div class="col-md-4">
+    <label>Cradle/Rope/SubContractor</label>
+    <div class="card card-body d-flex align-items-center">
+      <select id="cradleSelect" name="cradle_number" class="form-control" onchange="handleCradleChange()">
+            <option value="" selected disabled>Select Type</option>
+            <optgroup label="Cradle">
+                <option value="ManualCradle">Manual Cradle</option>
+                <option value="BuildingCradle">Building Cradle</option>
+            </optgroup>
+            <option value="Rope">Rope</option>
+            <option value="Scaffolding">Scaffolding</option>
+            <option value="BoomLift">BoomLift</option>
+            <option value="SubContractor">SubContractor</option>
+        </select>
+        <div id="cradleNumberInput" style="display: none;">
+            <label for="cradleNumber">Cradle Number</label>
+            <input type="text" name="cradle_number_input" class="form-control">
+        </div>
+    </div>
+</div>
+
                       <div class="col-md-4">
                         <label>starting_date</label>
                         <div class="card card-body  d-flex align-items-center">
@@ -388,7 +401,28 @@
                         <label>team</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="team" class="form-control" placeholder="Enter team Name">
+                            <input type="text" name="team" class="form-control" id="team" placeholder="Enter team Name">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Subcontractor Name</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          {{ form.new_subcontrator }}
+                          {{ form.existing_subcontrators }}
+                         </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Building type</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" name="Buildingtype" class="form-control" placeholder="Enter Building Type">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>No of Floors</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" name="No_of_Floors" class="form-control" placeholder="Enter No of floors">
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -396,20 +430,6 @@
                         <div class="card card-body  d-flex align-items-center">
                        
                             <input type="text" name="materials_used" class="form-control" placeholder="Enter materials used">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>receipt</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="receipt" class="form-control" placeholder="Enter receipt">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>invoice_number</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="invoice_number" class="form-control" placeholder="Enter invoice number">
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -434,17 +454,29 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label>income</label>
+                        <label>Payment Received</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="income" class="form-control" placeholder="Enter income">
+                            <input type="text" name="payment_received" class="form-control" placeholder="Enter income">
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label>receivable_pending</label>
+                        <label>Received Date</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="receivable_pending" class="form-control" placeholder="Enter receivable pending">
+                            <input type="text" name="received_date" class="form-control" placeholder="Enter income">
+                        </div>
+                      </div>
+                    
+                      <div class="col-md-4">
+                        <label>Bank Name</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          <select class='form-control'name="bank_name">
+                            <option value="" selected disabled>Select Type</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Bank 1">Bank 1</option>
+                            <option value="Bank 2">Bank 2</option>
+                          </select>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -454,6 +486,35 @@
                             <input type="text" name="comments" class="form-control" placeholder="Enter comments">
                         </div>
                       </div>
+                      <div class="col-md-4">
+                        <label>receipt</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" name="receipt" class="form-control" placeholder="Enter receipt">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>invoice_number</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" name="invoice_number" class="form-control" placeholder="Enter invoice number">
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <label>Payable Pending</label>
+                        <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="text" name="Payable_Pending" class="form-control" id="payablepending" placeholder="Enter Payable Pending" style="display: none;">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Subcontrator invoice</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          <input type="text" name="Subcontrator_invoice" id="subcontractorInvoice" class="form-control" placeholder="Enter Subcontrator Invoice Number" style="display: none;">
+                        </div>
+                      </div>
+                     
 
                   </div>
                   
@@ -480,7 +541,7 @@
       var projectType = document.getElementById('id_projectype').value;
       document.getElementById('amcFields').style.display = (projectType === 'AMC') ? 'block' : 'none';
       document.getElementById('lpoFields').style.display = (projectType === 'LPO') ? 'block' : 'none';
-      document.getElementById('workloaderFields').style.display = (projectType === 'Workloader') ? 'block' : 'none';
+      document.getElementById('WorkorderFields').style.display = (projectType === 'Workorder') ? 'block' : 'none';
     }
 
     function handleYearlyCycleChange() {
@@ -492,16 +553,16 @@
       scheduleNotification('Notify every 3 months for Yearly Cycle: ' + yearlyCycle, 90);
     }
 
-    function handleWorkloaderTypeChange() {
-      var workloaderType = document.getElementById('id_workloader_type').value;
-      // Add logic to show pop-up based on workloaderType value
-      alert('Show pop-up for Workloader Type: ' + workloaderType);
+    function handleWorkorderTypeChange() {
+      var WorkorderType = document.getElementById('id_Workorder_type').value;
+      // Add logic to show pop-up based on WorkorderType value
+      alert('Show pop-up for Workorder Type: ' + WorkorderType);
 
-      // Add additional logic based on the selected workloaderType
+      // Add additional logic based on the selected WorkorderType
       // Check every 25, 41, or 11 days accordingly
-      var daysInterval = (workloaderType === 'Normal 2') ? 25 : (workloaderType === 'Normal 3') ? 41 : 11;
+      var daysInterval = (WorkorderType === 'Normal 2') ? 25 : (WorkorderType === 'Normal 3') ? 41 : 11;
 
-      scheduleNotification('Notify every ' + daysInterval + ' days for Workloader Type: ' + workloaderType, daysInterval);
+      scheduleNotification('Notify every ' + daysInterval + ' days for Workorder Type: ' + WorkorderType, daysInterval);
     }
 
     function scheduleNotification(message, days) {
@@ -522,6 +583,42 @@
       }, days * 24 * 60 * 60 * 1000); // Convert days to milliseconds
     }
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var cradleSelect = document.getElementById('cradleSelect');
+        var cradleNumberInput = document.getElementById('cradleNumberInput');
+
+        cradleSelect.addEventListener('change', function () {
+            var selectedValue = cradleSelect.value;
+
+            if (selectedValue === 'ManualCradle') {
+                cradleNumberInput.style.display = 'block';
+            } else {
+                cradleNumberInput.style.display = 'none';
+            }
+        });
+    });
+</script>
+<script>
+  function handleCradleChange() {
+      var cradleSelect = document.getElementById("cradleSelect");
+      var subcontractorNameInput = document.getElementById("subcontractorName");
+      var subcontractorInvoiceInput = document.getElementById("subcontractorInvoice");
+      var teamInput = document.getElementById("team");
+      var payablependingInvoice = document.getElementById("payablepending");
+      // Check if the selected value is "SubContractor"
+      if (cradleSelect.value === "SubContractor") {
+          subcontractorNameInput.style.display = "block";
+          subcontractorInvoiceInput.style.display = "block";
+          payablependingInvoice.style.display = "block";
+          teamInput.style.display = "none";
+      } else {
+          subcontractorNameInput.style.display = "none";
+          subcontractorInvoiceInput.style.display = "none";
+          payablependingInvoice.style.display = "none";
+      }
+  }
+</script>
 
 
 {% endblock %}
