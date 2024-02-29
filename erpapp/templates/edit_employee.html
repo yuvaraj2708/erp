@@ -180,7 +180,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="/supplierproject/add/">
+          <a class="nav-link  " href="/accounts">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
@@ -196,7 +196,27 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Add Supplier Project</span>
+            <span class="nav-link-text ms-1">Add Account</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="/businessdevelopment">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>credit-card</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(453.000000, 454.000000)">
+                        <path class="color-background opacity-6" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"></path>
+                        <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Add BusinessDevelopment</span>
           </a>
         </li>
         <li class="nav-item mt-3">
@@ -234,15 +254,15 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Edit Employee </li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Add Employee</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Edit Employee</h6>
+          <h6 class="font-weight-bolder mb-0">Add Employee</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
            
           </div>
-       
+          
         </div>
       </div>
     </nav>
@@ -256,7 +276,7 @@
                
               </div>
             </div>
-            <form method="post">
+            <form method="post" >
                 {% csrf_token %}
             <div class="col-md-12 mb-lg-0 mb-4">
               <div class="card mt-4">
@@ -274,27 +294,21 @@
                 <div class="card-body p-3">
                   <div class="row">
                     <div class="col-md-4 mb-md-0 mb-4">
-                        
-                        <label for="{{ form.name.id_for_label }}">Employee Name</label>
-                      <div class="card card-body  d-flex align-items-center">
-                       
-                        {{ form.name }}
-                       
+                        <label>Employee Name</label>
+                      <div class="card card-body  d-flex align-items-center"> 
+                      {{form.employeename}}
                       </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="{{ form.name.id_for_label }}">Building</label>
+                        <label>date of joining</label>
                         <div class="card card-body  d-flex align-items-center">
-                         {{form.building}}
+                          {{form.date_of_joining}}
                           </div>
                     </div>
                     <div class="col-md-4">
-                        
-                        <label for="{{ form.basic_salary.id_for_label }}">Basic salary</label>
+                        <label>passport number</label>
                         <div class="card card-body  d-flex align-items-center">
-                       
-                          {{form.basic_salary}}
-                          
+                       {{form.passport_number}}
                         </div>
                       </div>
                   </div>
@@ -302,26 +316,21 @@
                 <div class="card-body p-3">
                     <div class="row">
                       <div class="col-md-4 mb-md-0 mb-4">
-                       
-                        <label for="{{ form.other_allowance.id_for_label }}">Other allowance</label>
+                        <label>passport expiry date</label>
                         <div class="card card-body  d-flex align-items-center">
-                       
-                          {{form.other_allowance}}
-                         
+                       {{form.passport_expirydate}}
                         </div>
                       </div>
                       <div class="col-md-4">
-                       
-                        <label for="{{ form.building_allowance.id_for_label }}">Building allowance</label>
+                        <label>emirate expirydate</label>
                         <div class="card card-body  d-flex align-items-center">
-                          {{form.building_allowance}}
+                       {{form.emirate_expirydate}}
                         </div>
                       </div>
                       <div class="col-md-4">
-                      
-                        <label for="{{ form.Leave_Salary.id_for_label }}">Leave Salary</label>
+                        <label>operatorcard expirydate</label>
                            <div class="card card-body  d-flex align-items-center">
-                            {{form.Leave_Salary}}
+                       {{form.operatorcard_expirydate}}
                           </div>
                         </div>
                     </div>
@@ -329,53 +338,18 @@
                   <div class="card-body p-3">
                     <div class="row">
                       <div class="col-md-4 mb-md-0 mb-4">
-                       
-                        <label for="{{ form.Bonus.id_for_label }}">Bonus</label>
+                        <label for="{{ form.date_of_releiving.id_for_label }}">date of releiving</label>
                         <div class="card card-body  d-flex align-items-center">
-                       
-                          {{form.Bonus}}
+                       {{form.date_of_releiving}}
                         </div>
                       </div>
-                      <div class="col-md-4">
-                       
-                        <label for="{{ form.Overtime.id_for_label }}">Overtime</label>
-                        <div class="card card-body  d-flex align-items-center">
-                          {{form.Overtime}}
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                       
-                        <label for="{{ form.Ticket.id_for_label }}">Ticket</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                          {{form.Ticket}}
-                          </div>
-                        </div>
+                     
+                   
                     </div>
                   </div>
-                  <div class="card-body p-3">
-                    <div class="row">
-                      <div class="col-md-4 mb-md-0 mb-4">
-                        <label for="{{ form.LOP.id_for_label }}">LOP</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                          {{form.LOP}}
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                       <label for="{{ form.Damage_Deduct.id_for_label }}">Damage Deduct</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                          {{form.Damage_Deduct}}
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                       
-                        <label for="{{ form.other_Deduct.id_for_label }}">Other Deduct</label>
-                        <div class="card card-body  d-flex align-items-center">
-                          {{form.other_Deduct}}
-                          </div>
-                        </div>
+                 
+                     
+                     
                     </div>
                     <button type='submit' class="btn-sm btn-primary">submit</button>
                   </div>

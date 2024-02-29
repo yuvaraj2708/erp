@@ -260,17 +260,14 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Building</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Basic salary</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Other allowance</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Building allowance</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Leave Salary</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Bonus</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Overtime</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ticket</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">LOP</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Damage Deduct</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Other Deduct</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">date_of_joining</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">passport_number</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">passport_expirydate </th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">emirate_expirydate</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">operatorcard_expirydate</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">date_of_releiving</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">EDIT</th>
+                     
                     </tr>
                   </thead>
                   <tbody>
@@ -278,49 +275,33 @@
                     <tr>
                       <td>
                         <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                          </div>
+                          
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"> {{ employee.name }}</h6>
+                            <h6 class="mb-0 text-sm"> {{ employee.employeename }}</h6>
                            
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.building }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ employee.date_of_joining }}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         {% comment %} <span class="badge badge-sm bg-gradient-success">{{ employee.name }}</span> {% endcomment %}
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.basic_salary }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ employee.passport_number }}</p>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ employee.other_allowance }}</span>
+                        <span class="text-secondary text-xs font-weight-bold">{{ employee.passport_expirydate }}</span>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.building_allowance }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ employee.emirate_expirydate }}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.Leave_Salary }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ employee.operatorcard_expirydate }}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.Bonus }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ employee.date_of_releiving }}</p>
                       </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.Overtime }}</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.Ticket }}</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.LOP }}</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.Damage_Deduct }}</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.other_Deduct }}</p>
-                      </td>
+                      
                       <td>
                       <a href="{% url 'edit_employee' employee.id %}" class="btn btn-success">Edit</a>
                       </td>

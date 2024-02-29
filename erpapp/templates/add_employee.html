@@ -180,7 +180,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="/supplierproject/add/">
+          <a class="nav-link  " href="/accounts">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
@@ -196,7 +196,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Add Supplier Project</span>
+            <span class="nav-link-text ms-1">Add Account</span>
           </a>
         </li>
         <li class="nav-item">
@@ -297,21 +297,22 @@
                         <label>Employee Name</label>
                       <div class="card card-body  d-flex align-items-center">
                        
-                        <input type="text" name="name" class="form-control" placeholder="Enter Employee Name">
+                        <input type="text" name="employeename" class="form-control" placeholder="Enter Employee Name">
                        
                       </div>
                     </div>
                     <div class="col-md-4">
-                        <label>Building</label>
+                        <label>date of joining</label>
                         <div class="card card-body  d-flex align-items-center">
-                         {{form.building}}
+                          <input type="date" name="date_of_joining" class="form-control" placeholder="Enter date of joining">
+                       
                           </div>
                     </div>
                     <div class="col-md-4">
-                        <label>Basic salary</label>
+                        <label>passport number</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="basic_salary" class="form-control" placeholder="Enter basic_salary">
+                            <input type="text" name="passport_number" class="form-control" placeholder="Enter passport number">
                           
                         </div>
                       </div>
@@ -320,26 +321,26 @@
                 <div class="card-body p-3">
                     <div class="row">
                       <div class="col-md-4 mb-md-0 mb-4">
-                        <label>Other allowance</label>
+                        <label>passport expiry date</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="other_allowance" class="form-control" placeholder="Enter other_allowance">
+                            <input type="date" name="passport_expirydate" class="form-control" placeholder="Enter passport expiry date">
                          
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label>Building allowance</label>
+                        <label>emirate expirydate</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="building_allowance" class="form-control" placeholder="Enter building_allowance">
+                            <input type="date" name="emirate_expirydate" class="form-control" placeholder="Enter emirate expirydate">
                           
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label>Leave Salary</label>
+                        <label>operatorcard expirydate</label>
                            <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="Leave_Salary" class="form-control" placeholder="Enter Leave_Salary">
+                            <input type="date" name="operatorcard_expirydate" class="form-control" placeholder="Enter operatorcard expirydate">
                             
                           </div>
                         </div>
@@ -348,56 +349,20 @@
                   <div class="card-body p-3">
                     <div class="row">
                       <div class="col-md-4 mb-md-0 mb-4">
-                        <label>Bonus</label>
+                        <label>date of releiving</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="Bonus" class="form-control" placeholder="Enter Bonus">
+                            <input type="date" name="date_of_releiving" class="form-control" placeholder="Enter date of joining">
                          
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <label>Overtime</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="Overtime" class="form-control" placeholder="Enter Overtime">
-                          
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>Ticket</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="Ticket" class="form-control" placeholder="Enter Ticket">
-                            
-                          </div>
-                        </div>
+                     
+                   
                     </div>
                   </div>
-                  <div class="card-body p-3">
-                    <div class="row">
-                      <div class="col-md-4 mb-md-0 mb-4">
-                        <label>LOP</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="LOP" class="form-control" placeholder="Enter LOP">
-                          
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>Damage Deduct</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="Damage_Deduct" class="form-control" placeholder="Enter Damage_Deduct">
-                         
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>Other Deduct</label>
-                        <div class="card card-body  d-flex align-items-center">
-                       
-                            <input type="text" name="other_Deduct" class="form-control" placeholder="Enter other_Deduct">
-                          </div>
-                        </div>
+                 
+                     
+                     
                     </div>
                     <button type='submit' class="btn-sm btn-primary">submit</button>
                   </div>

@@ -57,7 +57,7 @@
           </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link  active" href="/add_attendance">
+            <a class="nav-link  " href="/add_attendance">
               <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                 <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <title>shop </title>
@@ -179,7 +179,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="/supplierproject/add/">
+          <a class="nav-link active " href="/accounts">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
@@ -195,7 +195,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Add Supplier Project</span>
+            <span class="nav-link-text ms-1">Add Account</span>
           </a>
         </li>
         <li class="nav-item">
@@ -253,9 +253,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Add Attendance</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Add Account</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Add Attendance</h6>
+          <h6 class="font-weight-bolder mb-0">Add Account</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -265,63 +265,65 @@
         </div>
       </div>
     </nav>
-    <!-- End Navbar -->
-    <div class="container-fluid py-4">
-      <div class="row">
+<!-- create_tally_entry.html -->
+
+<div class="container-fluid py-4">
+    <div class="row">
         <div class="col-lg-12">
-          <div class="row">
-            <div class="col-xl-6 mb-xl-0 mb-4">
-              <div class="card bg-transparent shadow-xl">
-               
-              </div>
-            </div>
-            <div class="col-6 text-end">
-                       
-              <a class="btn bg-gradient-dark mb-0" href="/attendance_list"><i class="fas fa-plus"></i>&nbsp;&nbsp;View Attendance Details</a>
-            </div>
-            <div class="card-body p-3">
-              <form method="post">
-                {% csrf_token %}
-            
-                <label for="date">Date:</label>
-                <input type="date" class='form-control' name="date" required><br>
-            
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Employee Name</th>
-                            <th scope="col">Absent</th>
-                            <th scope="col">Present</th>
-                            <th scope="col">Reason</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for employee in employees %}
-                        <tr>
-                            <td>{{ employee.employeename }}</td>
-                            <td><input type="checkbox" name="present_{{ employee.id }}"></td>
-                            <td><input type="checkbox" name="absent_{{ employee.id }}"></td>
-                            <td><input type="text" class='form-control' name="reason_{{ employee.id }}" placeholder="Reason"></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button type="submit" class="btn btn-primary">Submit Attendance</button>
-                {% if formset.errors %}
-                <div class="alert alert-danger">
-                    {{ formset.errors }}
+            <div class="row">
+                <div class="col-xl-6 mb-xl-0 mb-4">
+                    <div class="card bg-transparent shadow-xl">
+                    </div>
                 </div>
+                <div class="col-6 text-end">
+                    <a class="btn bg-gradient-dark mb-0" href="/account_list"><i class="fas fa-plus"></i>&nbsp;&nbsp;View Account Details</a>
+                </div>
+                <div class="card-body p-3">
+                  <form method="post">
+                    {% csrf_token %}
+                    {{ formset.management_form }}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Debit</th>
+                                    <th>Credit</th>
+                                    <th>Bill</th>
+                                    <th>Class Type</th>
+                                    <th>Memo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for form in formset %}
+                                <tr>
+                                    <td>{{ form.name }}</td>
+                                    <td>{{ form.deb }}</td>
+                                    <td>{{ form.credit }}</td>
+                                    <td>{{ form.bill }}</td>
+                                    <td>{{ form.class_type }}</td>
+                                    <td>{{ form.memo }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type='submit' class="btn-sm btn-primary">Submit</button>
+                </form>
+                {% if formset.non_form_errors %}
+                    <div class="alert alert-danger">
+                        {{ formset.non_form_errors }}
+                    </div>
                 {% endif %}
-            </form>
-            
                 
-                
-          </div>
+                </div>
+            </div>
         </div>
-       
-      </div>
+    </div>
+</div>
+
+
+
+    {% endblock %}
     
-{% endblock %}
-
-
 

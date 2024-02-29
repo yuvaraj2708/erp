@@ -181,7 +181,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/supplierproject/add/">
+          <a class="nav-link" href="/accounts">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
@@ -197,7 +197,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Add Supplier Project</span>
+            <span class="nav-link-text ms-1">Add Account</span>
           </a>
         </li>
         <li class="nav-item">
@@ -358,7 +358,7 @@
   <div class="col-md-4">
     <label>Cradle/Rope/SubContractor</label>
     <div class="card card-body d-flex align-items-center">
-      <select id="cradleSelect" name="cradle_number" class="form-control" onchange="handleCradleChange()">
+        <select id="cradleSelect" name="cradle_number" class="form-control" onchange="handleCradleChange()">
             <option value="" selected disabled>Select Type</option>
             <optgroup label="Cradle">
                 <option value="ManualCradle">Manual Cradle</option>
@@ -401,12 +401,13 @@
                         <label>team</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="team" class="form-control" id="team" placeholder="Enter team Name">
+                            <input type="text" name="team" class="form-control" id="team" placeholder="Enter team Name" style="display:none">
                         </div>
                       </div>
+                      
                       <div class="col-md-4">
                         <label>Subcontractor Name</label>
-                        <div class="card card-body  d-flex align-items-center">
+                        <div class="card card-body  d-flex align-items-center" >
                           {{ form.new_subcontrator }}
                           {{ form.existing_subcontrators }}
                          </div>
@@ -457,14 +458,14 @@
                         <label>Payment Received</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="payment_received" class="form-control" placeholder="Enter income">
+                            <input type="text" name="payment_received" class="form-control" placeholder="Enter Payment Received">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>Received Date</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="received_date" class="form-control" placeholder="Enter income">
+                            <input type="text" name="received_date" class="form-control" placeholder="Enter Received Date">
                         </div>
                       </div>
                     
@@ -505,13 +506,25 @@
                         <label>Payable Pending</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" name="Payable_Pending" class="form-control" id="payablepending" placeholder="Enter Payable Pending" style="display: none;">
+                            <input type="text" name="Payable_Pending" class="form-control" id="Payable_Pending" placeholder="Enter Payable Pending" style="display: none;">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>Subcontrator invoice</label>
                         <div class="card card-body  d-flex align-items-center">
                           <input type="text" name="Subcontrator_invoice" id="subcontractorInvoice" class="form-control" placeholder="Enter Subcontrator Invoice Number" style="display: none;">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Paid</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          <input type="text" name="paid" id="paid" class="form-control" placeholder="Enter paid" style="display: none;">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Paid Date</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          <input type="text" name="paid_date" id="paid_date" class="form-control" placeholder="Enter paid date" style="display: none;">
                         </div>
                       </div>
                      
@@ -602,23 +615,27 @@
 <script>
   function handleCradleChange() {
       var cradleSelect = document.getElementById("cradleSelect");
-      var subcontractorNameInput = document.getElementById("subcontractorName");
       var subcontractorInvoiceInput = document.getElementById("subcontractorInvoice");
+      var paidInput = document.getElementById("paid");
+      var paidDateInput = document.getElementById("paid_date");
+      var payablePendingInput = document.getElementById("Payable_Pending");
       var teamInput = document.getElementById("team");
-      var payablependingInvoice = document.getElementById("payablepending");
+
       // Check if the selected value is "SubContractor"
       if (cradleSelect.value === "SubContractor") {
-          subcontractorNameInput.style.display = "block";
-          subcontractorInvoiceInput.style.display = "block";
-          payablependingInvoice.style.display = "block";
           teamInput.style.display = "none";
+          subcontractorInvoiceInput.style.display = "block";
+          paidInput.style.display = "block";
+          paidDateInput.style.display = "block";
+          payablePendingInput.style.display = "block";
       } else {
-          subcontractorNameInput.style.display = "none";
+          teamInput.style.display = "block";
           subcontractorInvoiceInput.style.display = "none";
-          payablependingInvoice.style.display = "none";
+          paidInput.style.display = "none";
+          paidDateInput.style.display = "none";
+          payablePendingInput.style.display = "none";
       }
   }
 </script>
-
 
 {% endblock %}

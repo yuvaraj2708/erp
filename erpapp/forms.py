@@ -1,6 +1,8 @@
 # clients/forms.py
 from django import forms
 from .models import *
+from django.forms import formset_factory
+from django.forms import inlineformset_factory
 
 class BuildingForm(forms.ModelForm):
     class Meta:
@@ -57,22 +59,70 @@ class businessdevelopmentForm(forms.ModelForm):
 class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
-        fields = ['name', 'building', 'basic_salary', 'other_allowance', 'building_allowance', 'Leave_Salary', 'Bonus', 'Overtime', 'Ticket', 'LOP', 'Damage_Deduct', 'other_Deduct']
+        fields = ['employeename', 'date_of_joining', 'passport_number', 'passport_expirydate', 'emirate_expirydate', 'operatorcard_expirydate', 'date_of_releiving']
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs.update({'class': 'form-control'})
-        self.fields['building'].widget.attrs.update({'class': 'form-control'})
-        self.fields['basic_salary'].widget.attrs.update({'class': 'form-control'})
-        self.fields['other_allowance'].widget.attrs.update({'class': 'form-control'})
-        self.fields['building_allowance'].widget.attrs.update({'class': 'form-control'})
-        self.fields['Leave_Salary'].widget.attrs.update({'class': 'form-control'})
-        self.fields['Bonus'].widget.attrs.update({'class': 'form-control'})
-        self.fields['Overtime'].widget.attrs.update({'class': 'form-control'})
-        self.fields['Ticket'].widget.attrs.update({'class': 'form-control'})
-        self.fields['LOP'].widget.attrs.update({'class': 'form-control'})
-        self.fields['Damage_Deduct'].widget.attrs.update({'class': 'form-control'})
-        self.fields['other_Deduct'].widget.attrs.update({'class': 'form-control'})
+        self.fields['employeename'].widget.attrs.update({'class': 'form-control'})
+        self.fields['date_of_joining'].widget.attrs.update({'class': 'form-control'})
+        self.fields['passport_number'].widget.attrs.update({'class': 'form-control'})
+        self.fields['passport_expirydate'].widget.attrs.update({'class': 'form-control'})
+        self.fields['emirate_expirydate'].widget.attrs.update({'class': 'form-control'})
+        self.fields['operatorcard_expirydate'].widget.attrs.update({'class': 'form-control'})
+        self.fields['date_of_releiving'].widget.attrs.update({'class': 'form-control'})
         
-    
+class allowanceForm(forms.ModelForm):
+    class Meta:
+        model = allowance
+        fields =['date','employeename','building','no_of_days','allowance','remark']
 
-    
+    def __init__(self, *args, **kwargs):
+           super().__init__(*args, **kwargs)
+           for field_name, field in self.fields.items():
+              field.required = False
+           self.fields['date'].widget.attrs.update({'class': 'form-control'})
+           self.fields['employeename'].widget.attrs.update({'class': 'form-control'})
+           self.fields['building'].widget.attrs.update({'class': 'form-control'})
+           self.fields['no_of_days'].widget.attrs.update({'class': 'form-control'})
+           self.fields['allowance'].widget.attrs.update({'class': 'form-control'})
+           self.fields['remark'].widget.attrs.update({'class': 'form-control'})
+           
+
+
+class SalaryForm(forms.ModelForm):
+    class Meta:
+        model = Salary
+        fields ='__all__'
+    def __init__(self, *args, **kwargs):
+           super().__init__(*args, **kwargs)
+           for field_name, field in self.fields.items():
+              field.required = False
+           self.fields['employee_name'].widget.attrs.update({'class': 'form-control'})
+           self.fields['basic_salary'].widget.attrs.update({'class': 'form-control'})
+           self.fields['date'].widget.attrs.update({'class': 'form-control'})
+           self.fields['other_allowance'].widget.attrs.update({'class': 'form-control'})
+           self.fields['building_allowance'].widget.attrs.update({'class': 'form-control'})
+           self.fields['leave_salary'].widget.attrs.update({'class': 'form-control'})
+           self.fields['bonus'].widget.attrs.update({'class': 'form-control'})
+           self.fields['overtime'].widget.attrs.update({'class': 'form-control'})
+           self.fields['ticket'].widget.attrs.update({'class': 'form-control'})
+           self.fields['lop'].widget.attrs.update({'class': 'form-control'})
+           self.fields['damage_deduct'].widget.attrs.update({'class': 'form-control'})
+           self.fields['other_deduct'].widget.attrs.update({'class': 'form-control'})
+
+class AccountForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        exclude = ['entry_collection', 'date']
+        fields = ['name', 'bill', 'class_type', 'deb', 'credit', 'memo']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.required = False
+            field.widget.attrs.update({'class': 'form-control'})
+
+        # Modify fields to use ModelChoiceField with a custom widget
+     
+
+TallyEntryFormSet = inlineformset_factory(TallyEntryCollection, Account, form=AccountForm, extra=10)
+

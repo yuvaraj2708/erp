@@ -1,6 +1,7 @@
 from django.db import models
 import os 
 from django.db.models import Sum
+from django.utils import timezone
 
 # Create your models here.
 class Client(models.Model):
@@ -51,11 +52,12 @@ class Project(models.Model):
     payment_received = models.CharField(max_length=255)
     received_date = models.CharField(max_length=255)
     bank_name= models.CharField(max_length=255)
-    receivable_pending = models.CharField(max_length=255)
     comments = models.TextField()
     Payable_Pending = models.CharField(max_length=255)
     Subcontrator_invoice = models.CharField(max_length=255)
     cradle_number_input = models.CharField(max_length=255)
+    paid = models.CharField(max_length=255)
+    paid_date = models.CharField(max_length=255)
 
 
     # Fields specific to AMC
@@ -100,30 +102,97 @@ class Businessdevelopment(models.Model):
 
 
 class Employee(models.Model):
-    name = models.CharField(max_length=255)
-    building = models.ForeignKey(Building, on_delete=models.CASCADE)
-    basic_salary = models.DecimalField(max_digits=10, decimal_places=2)
-    other_allowance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    building_allowance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    Leave_Salary = models.CharField(max_length=255)
-    Bonus = models.CharField(max_length=255)
-    Overtime = models.CharField(max_length=255) 
-    Ticket  = models.CharField(max_length=255)
-    LOP = models.CharField(max_length=255)
-    Damage_Deduct = models.CharField(max_length=255)
-    other_Deduct = models.CharField(max_length=255)
+    employeename = models.CharField(max_length=255)
+    date_of_joining = models.CharField(max_length=225)
+    passport_number = models.CharField(max_length=255)
+    passport_expirydate =  models.CharField(max_length=255)
+    emirate_expirydate =  models.CharField(max_length=255)
+    operatorcard_expirydate = models.CharField(max_length=255)
+    date_of_releiving = models.CharField(max_length=255)
     
-    def total_working_days(self):
-        return Attendance.objects.filter(employee=self, present=True).count()
+    def __str__(self):
+        return self.employeename
    
     
 class Attendance(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     date = models.DateField()
     present = models.BooleanField(default=False)
-    leave = models.BooleanField(default=False)  # Add this line
+    absent = models.BooleanField(default=False)  # Add this line
     reason = models.CharField(max_length=50)
     def formatted_date(self):
         return self.date.strftime("%Y-%m-%d")
+
+
+class TallyEntryCollection(models.Model):
+    collection_date = models.DateField(auto_now_add=True)
+
+
+class Account(models.Model):
+    entry_collection = models.ForeignKey(TallyEntryCollection, on_delete=models.CASCADE, related_name='tallyentry_set')
+    name = models.CharField(max_length=255)
+    bill = models.CharField(max_length=255)
+    class_type = models.CharField(max_length=255)
+    deb = models.DecimalField(max_digits=10, decimal_places=2)
+    credit = models.DecimalField(max_digits=10, decimal_places=2)
+    memo = models.CharField(max_length=255)
+  
+
+    def save(self, *args, **kwargs):
+        self.deb = self.deb if self.deb else 0
+        self.credit = self.credit if self.credit else 0
+        super().save(*args, **kwargs)
+
+
+class Salary(models.Model):
+    employee_name = models.ForeignKey(Employee ,on_delete=models.CASCADE)
+    basic_salary = models.CharField(max_length=255)
+    date=models.DateField()
+    other_allowance = models.CharField(max_length=255)
+    building_allowance = models.CharField(max_length=255)
+    leave_salary = models.CharField(max_length=255)
+    bonus = models.CharField(max_length=255)
+    overtime = models.CharField(max_length=255)
+    ticket = models.CharField(max_length=255)
+    lop = models.CharField(max_length=255)
+    damage_deduct = models.CharField(max_length=255)
+    other_deduct = models.CharField(max_length=255)
     
+    def calculate_total(self):
+        # Convert fields to numeric types before performing calculations
+        basic_salary = float(self.basic_salary) if self.basic_salary else 0
+        other_allowance = float(self.other_allowance) if self.other_allowance else 0
+        building_allowance = float(self.building_allowance) if self.building_allowance else 0
+        leave_salary = float(self.leave_salary) if self.leave_salary else 0
+        bonus = float(self.bonus) if self.bonus else 0
+        overtime = float(self.overtime) if self.overtime else 0
+        ticket = float(self.ticket) if self.ticket else 0
+        lop = float(self.lop) if self.lop else 0
+        damage_deduct = float(self.damage_deduct) if self.damage_deduct else 0
+        other_deduct = float(self.other_deduct) if self.other_deduct else 0
+
+        # Perform calculations
+        total = (
+            basic_salary +
+            other_allowance +
+            building_allowance +
+            leave_salary +
+            bonus +
+            overtime +
+            ticket -
+            lop -
+            damage_deduct -
+            other_deduct
+        )
+        return total
+
+class allowance(models.Model):
+    date=models.DateField()
+    employeename = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True, blank=True)
+    building = models.ManyToManyField(Building)
+    no_of_days = models.CharField(max_length=255)
+    allowance = models.CharField(max_length=255)
+    remark = models.CharField(max_length=255)
+
+  
     

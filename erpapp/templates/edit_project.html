@@ -279,15 +279,16 @@
                       <div class="col-md-4 mb-md-0 mb-4">
                           <label>Client Name</label>
                           <div class="card card-body d-flex align-items-center">
-                              
-                              {{ form.new_client }}
+                            {{ form.client }}
+                             
                               {{ form.existing_clients }}
                           </div>
                       </div>
                     <div class="col-md-4">
                         <label>Building Name</label>
                         <div class="card card-body d-flex align-items-center">
-                          {{ form.new_building }}
+                          {{ form.building }}
+                         
                           {{ form.existing_buildings }}
                         </div>
                     </div>
@@ -436,14 +437,14 @@
                       <div class="col-md-4">
                         <label>Payment Received</label>
                         <div class="card card-body  d-flex align-items-center">
-                            <input type="text" value="{{project.payment_received}}" name="payment_received" class="form-control" placeholder="Enter income">
+                            <input type="text" value="{{project.payment_received}}" name="payment_received" class="form-control" placeholder="Enter Payment Received">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <label>Received Date</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" value="{{project.received_date}}" name="received_date" class="form-control" placeholder="Enter income">
+                            <input type="text" value="{{project.received_date}}" name="received_date" class="form-control" placeholder="Enter Received Date">
                         </div>
                       </div>
                     
@@ -484,7 +485,7 @@
                         <label>Payable Pending</label>
                         <div class="card card-body  d-flex align-items-center">
                        
-                            <input type="text" value="{{project.Payable_Pending}}" name="Payable_Pending" class="form-control" id="payablepending" placeholder="Enter Payable Pending" style="display: none;">
+                            <input type="text" value="{{project.Payable_Pending}}" name="Payable_Pending" class="form-control" id="Payable_Pending" placeholder="Enter Payable Pending" style="display: none;">
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -493,7 +494,18 @@
                           <input type="text" value="{{project.Subcontrator_invoice}}" name="Subcontrator_invoice" id="subcontractorInvoice" class="form-control" placeholder="Enter Subcontrator Invoice Number" style="display: none;">
                         </div>
                       </div>
-                     
+                      <div class="col-md-4">
+                        <label>Paid</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          <input type="text" name="paid" value="{{project.paid}}" id="paid" class="form-control" placeholder="Enter paid" style="display: none;">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Paid Date</label>
+                        <div class="card card-body  d-flex align-items-center">
+                          <input type="text" name="paid_date" value="{{project.paid_date}}" id="paid_date" class="form-control" placeholder="Enter paid date" style="display: none;">
+                        </div>
+                      </div>
 
                   </div>
                   
@@ -582,18 +594,25 @@
 <script>
   function handleCradleChange() {
       var cradleSelect = document.getElementById("cradleSelect");
-      var subcontractorNameInput = document.getElementById("subcontractorName");
       var subcontractorInvoiceInput = document.getElementById("subcontractorInvoice");
+      var paidInput = document.getElementById("paid");
+      var paidDateInput = document.getElementById("paid_date");
+      var payablePendingInput = document.getElementById("Payable_Pending");
       var teamInput = document.getElementById("team");
 
       // Check if the selected value is "SubContractor"
       if (cradleSelect.value === "SubContractor") {
-          subcontractorNameInput.style.display = "block";
-          subcontractorInvoiceInput.style.display = "block";
           teamInput.style.display = "none";
+          subcontractorInvoiceInput.style.display = "block";
+          paidInput.style.display = "block";
+          paidDateInput.style.display = "block";
+          payablePendingInput.style.display = "block";
       } else {
-          subcontractorNameInput.style.display = "none";
+          teamInput.style.display = "block";
           subcontractorInvoiceInput.style.display = "none";
+          paidInput.style.display = "none";
+          paidDateInput.style.display = "none";
+          payablePendingInput.style.display = "none";
       }
   }
 </script>
