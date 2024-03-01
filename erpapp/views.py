@@ -249,7 +249,7 @@ def edit_project(request, project_id):
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('employee_list')  # Change 'building_list' to your actual building list URL
+            return redirect('project_list')  # Change 'building_list' to your actual building list URL
     else:
         form = ProjectForm(instance=project)
 
@@ -372,10 +372,10 @@ def salary_list(request):
         
         if employee_name:
             salary = salary.filter(employee_name__employeename=employee_name)
+        total_salary = sum(entry.calculate_total() for entry in salary)
+        
 
-       
-
-    return render(request, 'salary_list.html', {'salary': salary})
+    return render(request, 'salary_list.html', {'salary': salary,'total_salary':total_salary})
 
 
 @login_required
@@ -460,21 +460,24 @@ def add_attendance(request):
                 present_key = f"present_{employee.id}"
                 absent_key = f"absent_{employee.id}"
                 reason_key = f"reason_{employee.id}"
+                attachment_key = f"attachment_{employee.id}"
 
                 present = request.POST.get(present_key)
                 absent = request.POST.get(absent_key)
                 reason = request.POST.get(reason_key, "")
+                attachment = request.FILES.get(attachment_key, None)
 
                 # Get today's attendance record or create a new one
                 attendance, created = Attendance.objects.get_or_create(
                     employee=employee,
                     date=today_date,
-                    defaults={'present': False, 'absent': False, 'reason': ""}
+                    defaults={'present': False, 'absent': False, 'reason': "",'attachment':''}
                 )
 
                 attendance.present = present == 'on'
                 attendance.absent = absent == 'on'
                 attendance.reason = reason
+                attendance.attachment = attachment
                 attendance.save()
 
             return redirect('attendance_list')
@@ -516,11 +519,13 @@ def edit_attendance(request, atttendance_id):
         present = request.POST.get('present') == 'on'
         absent = request.POST.get('absent') == 'on'
         reason = request.POST.get('reason', '')
+        attachment = request.POST.get('attachment', '')
 
         # Update the existing attendance record
         attendance.present = present
         attendance.absent = absent
         attendance.reason = reason
+        attendance.attachment = attachment
         attendance.save()
 
         return redirect('attendance_list')  # Redirect to a success page or another page after editing

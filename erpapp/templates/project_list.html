@@ -316,7 +316,13 @@
                      
                   </tr>
                     <tr>
-                     
+                      <td>
+                        {% if Projectlist.is_fully_entered %}
+                            <span class="badge badge-sm bg-gradient-success">Done</span>
+                        {% else %}
+                            <span class="badge badge-sm bg-gradient-danger">Not Done</span>
+                        {% endif %}
+                    </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0">{{Projectlist.client}}</p>
                       </td>

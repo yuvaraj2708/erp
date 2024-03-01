@@ -70,6 +70,11 @@ class Project(models.Model):
 
     # Fields specific to Workloader
     workorder_type = models.CharField(max_length=50, choices=[('Normal 2', 'Normal 2'), ('Normal 3', 'Normal 3'), ('Critical', 'Critical')], null=True, blank=True)   
+    def is_fully_entered(self):
+        # Check if all required fields are filled
+        required_fields = [self.starting_date, self.finishing_date, self.payment_received]
+        return all(field for field in required_fields)
+    
 
 class Supplierproject(models.Model):    
    Building_Name = models.ForeignKey(Building, on_delete=models.CASCADE)
@@ -120,6 +125,7 @@ class Attendance(models.Model):
     present = models.BooleanField(default=False)
     absent = models.BooleanField(default=False)  # Add this line
     reason = models.CharField(max_length=50)
+    attachment = models.FileField(upload_to='attendance_attachments/', null=True, blank=True)
     def formatted_date(self):
         return self.date.strftime("%Y-%m-%d")
 

@@ -280,7 +280,7 @@
               <a class="btn bg-gradient-dark mb-0" href="/attendance_list"><i class="fas fa-plus"></i>&nbsp;&nbsp;View Attendance Details</a>
             </div>
             <div class="card-body p-3">
-              <form method="post">
+              <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
             
                 <label for="date">Date:</label>
@@ -290,9 +290,10 @@
                     <thead>
                         <tr>
                             <th scope="col">Employee Name</th>
-                            <th scope="col">Absent</th>
                             <th scope="col">Present</th>
+                            <th scope="col">Absent</th>
                             <th scope="col">Reason</th>
+                            <th scope="col">Attachment</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -302,6 +303,7 @@
                             <td><input type="checkbox" name="present_{{ employee.id }}"></td>
                             <td><input type="checkbox" name="absent_{{ employee.id }}"></td>
                             <td><input type="text" class='form-control' name="reason_{{ employee.id }}" placeholder="Reason"></td>
+                            <td><input type="file" class='form-control' name="attachment_{{ employee.id }}" ></td>
                         </tr>
                         {% endfor %}
                     </tbody>

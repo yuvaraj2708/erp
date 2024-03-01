@@ -318,6 +318,7 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee Name</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Present/Abcent</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">reason</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Document</th>
                       
                       <th class="text-secondary opacity-7">Edit</th>
                     </tr>
@@ -351,6 +352,15 @@
                       <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm bg-gradient-success">{{ attendancelist.reason }}</span>
                       </td>
+                      <td class="align-middle text-center text-sm">
+                        {% if attendancelist.attachment %}
+                            <a href="{{ attendancelist.attachment.url }}" download>
+                                <span class="badge badge-sm bg-gradient-success">Download Attachment</span>
+                            </a>
+                        {% else %}
+                            <span class="badge badge-sm bg-gradient-danger">No Attachment</span>
+                        {% endif %}
+                    </td>
                       <td>
                       <a href="{% url 'edit_attendance' attendancelist.id %}" class="btn btn-success">Edit</a>
                       </td>

@@ -344,6 +344,10 @@
                       </td>
                     </tr>
                     {% endfor %}
+                    <div class="card-footer d-flex justify-content-end">
+                      <h5 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 me-3">Total Salary:</h5>
+                      <h5 class="text-uppercase text-success text-xxs font-weight-bolder">{{ total_salary|default:0 }}</h5>
+                  </div>
                   </tbody>
                 </table>
               </div>
