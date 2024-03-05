@@ -276,7 +276,7 @@
                
               </div>
             </div>
-            <form method="post" action="{% url 'add_employee' %}">
+            <form method="post" enctype="multipart/form-data" >
                 {% csrf_token %}
             <div class="col-md-12 mb-lg-0 mb-4">
               <div class="card mt-4">
@@ -357,8 +357,16 @@
                         </div>
                       </div>
                      
-                   
+                      <div class="col-md-4">
+                        <label>Attachment</label>
+                           <div class="card card-body  d-flex align-items-center">
+                       
+                            <input type="file" class="form-control" name="attachment">
+                            
+                          </div>
+                        </div>
                     </div>
+                    
                   </div>
                  
                      

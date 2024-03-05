@@ -106,15 +106,30 @@ def edit_employee(request, employee_id):
     employee = get_object_or_404(Employee, pk=employee_id)
 
     if request.method == 'POST':
-        form = EmployeeForm(request.POST, instance=employee)
-        if form.is_valid():
-            form.save()
-            return redirect('employee_list')
+        employee.employeename = request.POST.get('employeename')
+        employee.date_of_joining = request.POST.get('date_of_joining')
+        employee.passport_number = request.POST.get('passport_number')
+        employee.passport_expirydate = request.POST.get('passport_expirydate')
+        employee.emirate_expirydate = request.POST.get('emirate_expirydate')
+        employee.operatorcard_expirydate = request.POST.get('operatorcard_expirydate')
+        employee.date_of_releiving = request.POST.get('date_of_releiving')
+        employee.attachment = request.FILES.get('attachment')  # Use request.FILES for file uploads
+        employee.save()
+
+        return redirect('employee_list')
     else:
-        form = EmployeeForm(instance=employee)
+        # Populate the form with existing data
+        form_data = {
+            'employeename': employee.employeename,
+            'date_of_joining': employee.date_of_joining,
+            'passport_number': employee.passport_number,
+            'passport_expirydate': employee.passport_expirydate,
+            'emirate_expirydate': employee.emirate_expirydate,
+            'operatorcard_expirydate': employee.operatorcard_expirydate,
+            'date_of_releiving': employee.date_of_releiving,
+        }
 
-    return render(request, 'edit_employee.html', {'form': form, 'employee': employee})
-
+    return render(request, 'edit_employee.html', {'form_data': form_data, 'employee': employee})
 
 @login_required
 def add_client(request):
@@ -329,14 +344,31 @@ def project_list(request):
 @login_required
 def add_employee(request):
     if request.method == 'POST':
-        form = EmployeeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('employee_list')  # Change 'employee_list' to your actual employee list URL
-    else:
-        form = EmployeeForm()
+        employeename = request.POST.get('employeename')
+        date_of_joining = request.POST.get('date_of_joining')
+        passport_number = request.POST.get('passport_number')
+        passport_expirydate = request.POST.get('passport_expirydate')
+        emirate_expirydate = request.POST.get('emirate_expirydate')
+        operatorcard_expirydate = request.POST.get('operatorcard_expirydate')
+        date_of_releiving = request.POST.get('date_of_releiving')
+        attachment = request.FILES.get('attachment')  # Use request.FILES for file uploads
 
-    return render(request, 'add_employee.html', {'form': form})
+        # Create Employee object and save it
+        employee = Employee(
+            employeename=employeename,
+            date_of_joining=date_of_joining,
+            passport_number=passport_number,
+            passport_expirydate=passport_expirydate,
+            emirate_expirydate=emirate_expirydate,
+            operatorcard_expirydate=operatorcard_expirydate,
+            date_of_releiving=date_of_releiving,
+            attachment=attachment
+        )
+        employee.save()
+
+        return redirect('employee_list')  # Change 'employee_list' to your actual employee list URL
+
+    return render(request, 'add_employee.html')
 
 @login_required
 def add_salary(request):

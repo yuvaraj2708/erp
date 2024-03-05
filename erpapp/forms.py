@@ -59,17 +59,8 @@ class businessdevelopmentForm(forms.ModelForm):
 class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
-        fields = ['employeename', 'date_of_joining', 'passport_number', 'passport_expirydate', 'emirate_expirydate', 'operatorcard_expirydate', 'date_of_releiving']
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['employeename'].widget.attrs.update({'class': 'form-control'})
-        self.fields['date_of_joining'].widget.attrs.update({'class': 'form-control'})
-        self.fields['passport_number'].widget.attrs.update({'class': 'form-control'})
-        self.fields['passport_expirydate'].widget.attrs.update({'class': 'form-control'})
-        self.fields['emirate_expirydate'].widget.attrs.update({'class': 'form-control'})
-        self.fields['operatorcard_expirydate'].widget.attrs.update({'class': 'form-control'})
-        self.fields['date_of_releiving'].widget.attrs.update({'class': 'form-control'})
-        
+        fields = ['employeename', 'date_of_joining', 'passport_number', 'passport_expirydate', 'emirate_expirydate', 'operatorcard_expirydate', 'date_of_releiving','attachment']
+   
 class allowanceForm(forms.ModelForm):
     class Meta:
         model = allowance
@@ -108,6 +99,7 @@ class SalaryForm(forms.ModelForm):
            self.fields['lop'].widget.attrs.update({'class': 'form-control'})
            self.fields['damage_deduct'].widget.attrs.update({'class': 'form-control'})
            self.fields['other_deduct'].widget.attrs.update({'class': 'form-control'})
+           
 
 class AccountForm(forms.ModelForm):
     class Meta:

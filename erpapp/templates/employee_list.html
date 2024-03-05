@@ -266,6 +266,7 @@
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">emirate_expirydate</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">operatorcard_expirydate</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">date_of_releiving</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Attachment</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">EDIT</th>
                      
                     </tr>
@@ -301,6 +302,16 @@
                       <td>
                         <p class="text-xs font-weight-bold mb-0">{{ employee.date_of_releiving }}</p>
                       </td>
+                      <td class="align-middle text-center text-sm">
+                        {% if employee.attachment %}
+                            <a href="{{ employee.attachment.url }}" download>
+                                <span class="badge badge-sm bg-gradient-success">Download Attachment</span>
+                            </a>
+                        {% else %}
+                            <span class="badge badge-sm bg-gradient-danger">No Attachment</span>
+                        {% endif %}
+                    </td>
+
                       
                       <td>
                       <a href="{% url 'edit_employee' employee.id %}" class="btn btn-success">Edit</a>
