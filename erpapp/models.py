@@ -111,9 +111,12 @@ class Employee(models.Model):
     date_of_joining = models.CharField(max_length=225)
     passport_number = models.CharField(max_length=255)
     passport_expirydate =  models.CharField(max_length=255)
-    emirate_expirydate =  models.CharField(max_length=255)
+    eid =  models.CharField(max_length=255)
+    eid_expirydate =  models.CharField(max_length=255)
+    nationality = models.CharField(max_length=255)
     operatorcard_expirydate = models.CharField(max_length=255)
     date_of_releiving = models.CharField(max_length=255)
+
     attachment = models.FileField(upload_to='employee_attachments/', null=True, blank=True)
     def __str__(self):
         return self.employeename

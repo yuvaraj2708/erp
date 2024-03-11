@@ -59,7 +59,7 @@ class businessdevelopmentForm(forms.ModelForm):
 class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
-        fields = ['employeename', 'date_of_joining', 'passport_number', 'passport_expirydate', 'emirate_expirydate', 'operatorcard_expirydate', 'date_of_releiving','attachment']
+        fields = '__all__'
    
 class allowanceForm(forms.ModelForm):
     class Meta:

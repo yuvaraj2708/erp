@@ -263,9 +263,11 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">date_of_joining</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">passport_number</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">passport_expirydate </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">emirate_expirydate</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">eid</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">eid_expirydate</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">operatorcard_expirydate</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">date_of_releiving</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nationality</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Attachment</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">EDIT</th>
                      
@@ -291,16 +293,26 @@
                         <p class="text-xs font-weight-bold mb-0">{{ employee.passport_number }}</p>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ employee.passport_expirydate }}</span>
+                        {% if employee.passport_expirydate > today %}
+                            <span class="text-danger text-xs font-weight-bold">{{ employee.passport_expirydate }}</span>
+                        {% else %}
+                            <span class="text-secondary text-xs font-weight-bold">{{ employee.passport_expirydate }}</span>
+                        {% endif %}
+                    </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{ employee.eid }}</p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ employee.emirate_expirydate }}</p>
+                        <p class="text-xs font-weight-bold mb-0">{{ employee.eid_expirydate }}</p>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0">{{ employee.operatorcard_expirydate }}</p>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0">{{ employee.date_of_releiving }}</p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{ employee.nationality }}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         {% if employee.attachment %}
@@ -327,3 +339,4 @@
       </div>   
    
 {% endblock %}
+

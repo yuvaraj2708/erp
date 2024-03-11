@@ -110,7 +110,9 @@ def edit_employee(request, employee_id):
         employee.date_of_joining = request.POST.get('date_of_joining')
         employee.passport_number = request.POST.get('passport_number')
         employee.passport_expirydate = request.POST.get('passport_expirydate')
-        employee.emirate_expirydate = request.POST.get('emirate_expirydate')
+        employee.eid_expirydate = request.POST.get('eid_expirydate')
+        employee.eid = request.POST.get('eid')
+        employee.nationality = request.POST.get('nationality')
         employee.operatorcard_expirydate = request.POST.get('operatorcard_expirydate')
         employee.date_of_releiving = request.POST.get('date_of_releiving')
         employee.attachment = request.FILES.get('attachment')  # Use request.FILES for file uploads
@@ -124,7 +126,9 @@ def edit_employee(request, employee_id):
             'date_of_joining': employee.date_of_joining,
             'passport_number': employee.passport_number,
             'passport_expirydate': employee.passport_expirydate,
-            'emirate_expirydate': employee.emirate_expirydate,
+            'eid_expirydate': employee.eid_expirydate,
+             'eid': employee.eid,
+              'nationality': employee.nationality,
             'operatorcard_expirydate': employee.operatorcard_expirydate,
             'date_of_releiving': employee.date_of_releiving,
         }
@@ -348,7 +352,9 @@ def add_employee(request):
         date_of_joining = request.POST.get('date_of_joining')
         passport_number = request.POST.get('passport_number')
         passport_expirydate = request.POST.get('passport_expirydate')
-        emirate_expirydate = request.POST.get('emirate_expirydate')
+        eid_expirydate = request.POST.get('eid_expirydate')
+        eid = request.POST.get('eid')
+        nationality = request.POST.get('nationality')
         operatorcard_expirydate = request.POST.get('operatorcard_expirydate')
         date_of_releiving = request.POST.get('date_of_releiving')
         attachment = request.FILES.get('attachment')  # Use request.FILES for file uploads
@@ -359,7 +365,8 @@ def add_employee(request):
             date_of_joining=date_of_joining,
             passport_number=passport_number,
             passport_expirydate=passport_expirydate,
-            emirate_expirydate=emirate_expirydate,
+            eid_expirydate=eid_expirydate,
+            nationality=nationality,
             operatorcard_expirydate=operatorcard_expirydate,
             date_of_releiving=date_of_releiving,
             attachment=attachment
@@ -567,7 +574,8 @@ def edit_attendance(request, atttendance_id):
 @login_required
 def employee_list(request):
     employees = Employee.objects.all()
-    return render(request, 'employee_list.html', {'employees': employees})
+    today = date.today()
+    return render(request, 'employee_list.html', {'employees': employees, 'today': today})
 
 
    

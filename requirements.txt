@@ -2,3 +2,4 @@ pip install openpyxl
 pip install reportlab
 pip install django-crispy-forms django-bootstrap4 django-accounting
 pip insall django-multiselectfield
+pip install django-storages

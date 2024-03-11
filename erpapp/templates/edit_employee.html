@@ -276,7 +276,7 @@
                
               </div>
             </div>
-            <form method="post" >
+            <form method="post" enctype="multipart/form-data" >
                 {% csrf_token %}
             <div class="col-md-12 mb-lg-0 mb-4">
               <div class="card mt-4">
@@ -318,19 +318,19 @@
                       <div class="col-md-4 mb-md-0 mb-4">
                         <label>passport expiry date</label>
                         <div class="card card-body  d-flex align-items-center">
-                          <input type="text" name="passport_expirydate" value="{{employee.passport_expirydate}}" class="form-control" placeholder="Enter passport number">
+                          <input type="date" name="passport_expirydate" value="{{employee.passport_expirydate}}" class="form-control" placeholder="Enter passport number">
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label>emirate expirydate</label>
+                        <label>E id</label>
                         <div class="card card-body  d-flex align-items-center">
-                          <input type="text" name="emirate_expirydate" value="{{employee.emirate_expirydate}}" class="form-control" placeholder="Enter passport number">
+                          <input type="text" name="eid" value="{{employee.eid}}" class="form-control" placeholder="Enter E id">
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <label>operatorcard expirydate</label>
+                        <label>eid expirydate</label>
                            <div class="card card-body  d-flex align-items-center">
-                            <input type="text" name="operatorcard_expirydate" value="{{employee.operatorcard_expirydate}}" class="form-control" placeholder="Enter passport number">
+                            <input type="date" name="eid_expirydate" value="{{employee.eid_expirydate}}" class="form-control" placeholder="Enter eid_expirydate">
                           </div>
                         </div>
                     </div>
@@ -343,22 +343,36 @@
                           <input type="text" name="date_of_releiving" value="{{employee.date_of_releiving}}" class="form-control" placeholder="Enter passport number">
                         </div>
                       </div>
-                     
-                   
+                      <div class="col-md-4">
+                        <label>operatorcard expirydate</label>
+                        <div class="card card-body  d-flex align-items-center">
+                    
+                         <input type="date" name="operatorcard_expirydate" value="{{employee.operatorcard_expirydate}}" class="form-control" placeholder="Enter operatorcard expirydate">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Nationality</label>
+                           <div class="card card-body  d-flex align-items-center">
+                            <input type="text" name="nationality" class="form-control" placeholder="Enter Nationality">   
+                          </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="card-body p-3">
                     <div class="row">
                       <div class="col-md-4 mb-md-0 mb-4">
-                        <label for="{{ form.date_of_releiving.id_for_label }}">Attachment</label>
+                        <label>Attachment</label>
                         <div class="card card-body  d-flex align-items-center">
-                          <input type="file" name="attachment" value="{{employee.attachment}}" class="form-control">
+                       
+                          <input type="file" class="form-control" name="attachment">
+                         
                         </div>
                       </div>
                      
-                   
+                </div>
                     </div>
                   </div>
+                
+                  
+                     
                  
                      
                      
