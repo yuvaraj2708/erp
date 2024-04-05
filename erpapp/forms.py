@@ -3,6 +3,7 @@ from django import forms
 from .models import *
 from django.forms import formset_factory
 from django.forms import inlineformset_factory
+from django_select2.forms import Select2Widget
 
 class BuildingForm(forms.ModelForm):
     class Meta:
@@ -15,12 +16,27 @@ class BuildingForm(forms.ModelForm):
         self.fields['building_name'].widget.attrs.update({'class': 'form-control'})       
 
 class ProjectForm(forms.ModelForm):
-    existing_clients = forms.ModelChoiceField(queryset=Client.objects.all(), required=False, empty_label="Select existing client")
+    existing_clients = forms.ModelChoiceField(
+        queryset=Client.objects.all(),
+        required=False,
+        empty_label="Select existing client",
+        widget=Select2Widget
+    )
     new_client = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Client'}))
     new_building = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Building'}))
-    existing_buildings = forms.ModelChoiceField(queryset=Building.objects.all(), required=False, empty_label="Select existing Building")
+    existing_buildings = forms.ModelChoiceField(
+        queryset=Building.objects.all(),
+        required=False,
+        empty_label="Select existing Building",
+        widget=Select2Widget
+    )
     new_subcontrator = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter new_subcontrator'}))
-    existing_subcontrators = forms.ModelChoiceField(queryset=Supplier.objects.all(), required=False, empty_label="Select existing new_subcontrator")
+    existing_subcontrators = forms.ModelChoiceField(
+        queryset=Supplier.objects.all(),
+        required=False,
+        empty_label="Select existing new_subcontrator",
+        widget=Select2Widget
+    )
 
     class Meta:
         model = Project
