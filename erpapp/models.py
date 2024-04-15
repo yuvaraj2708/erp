@@ -117,7 +117,9 @@ class Employee(models.Model):
     operatorcard_expirydate = models.CharField(max_length=255)
     date_of_releiving = models.CharField(max_length=255)
 
-    attachment = models.FileField(upload_to='employee_attachments/', null=True, blank=True)
+    passportattachment = models.FileField(upload_to='employee_attachments/', null=True, blank=True)
+    emiratesattachment = models.FileField(upload_to='employee_attachments/', null=True, blank=True)
+    operatorcardattachment = models.FileField(upload_to='employee_attachments/', null=True, blank=True)
     def __str__(self):
         return self.employeename
    

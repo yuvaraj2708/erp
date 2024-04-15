@@ -323,13 +323,13 @@
     <!-- Fields specific to AMC -->
     <div id="amcFields" style="display: none;">
       <label for="id_amc_start_date">AMC Start Date:</label>
-      <input type="date" name="amc_start_date" id="id_amc_start_date">
+      <input type="date" name="amc_start_date" class="form-control" id="id_amc_start_date">
       
       <label for="id_amc_end_date">AMC End Date:</label>
-      <input type="date" name="amc_end_date" id="id_amc_end_date">
+      <input type="date" name="amc_end_date" class="form-control" id="id_amc_end_date">
       
       <label for="id_yearly_cycle">Yearly Cycle:</label>
-      <select name="yearly_cycle" id="id_yearly_cycle" onchange="handleYearlyCycleChange()">
+      <select name="yearly_cycle" id="id_yearly_cycle" class="form-control" onchange="handleYearlyCycleChange()">
         <option value="" selected disabled>Select Year Type</option>
         <option value="Yearly 1">Yearly 1</option>
         <option value="Yearly 2">Yearly 2</option>
@@ -341,13 +341,13 @@
     <!-- Fields specific to LPO -->
     <div id="lpoFields" style="display: none;">
       <label for="id_lpo_field">LPO Field:</label>
-      <input type="text" name="lpo_field" id="id_lpo_field">
+      <input type="text" name="lpo_field" class="form-control" id="id_lpo_field">
     </div>
 
     <!-- Fields specific to Workorder -->
     <div id="WorkorderFields" style="display: none;">
       <label for="id_Workorder_type">Workorder Type:</label>
-      <select name="Workorder_type" id="id_Workorder_type" onchange="handleWorkorderTypeChange()">
+      <select name="Workorder_type" id="id_Workorder_type" class="form-control"  onchange="handleWorkorderTypeChange()">
         <option value="" selected disabled>Select Type</option>
         <option value="Normal 2">Normal 2</option>
         <option value="Normal 3">Normal 3</option>

@@ -315,13 +315,27 @@
                         <p class="text-xs font-weight-bold mb-0">{{ employee.nationality }}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        {% if employee.attachment %}
-                            <a href="{{ employee.attachment.url }}" download>
-                                <span class="badge badge-sm bg-gradient-success">Download Attachment</span>
+                        {% if employee.passportattachment %}
+                            <a href="{{ employee.passportattachment.url }}" download>
+                                <span class="badge badge-sm bg-gradient-success">Download Passport Attachment</span>
+                            </a>
+                            {% if employee.emiratesattachment %}
+                            <a href="{{ employee.emiratesattachment.url }}" download>
+                                <span class="badge badge-sm bg-gradient-success">Download Emirates Attachment</span>
+                            </a>
+                            {% if employee.operatorcardattachment %}
+                            <a href="{{ employee.operatorcardattachment.url }}" download>
+                                <span class="badge badge-sm bg-gradient-success">Download Operatorcard Attachment</span>
                             </a>
                         {% else %}
                             <span class="badge badge-sm bg-gradient-danger">No Attachment</span>
                         {% endif %}
+                        {% else %}
+                        <span class="badge badge-sm bg-gradient-danger">No Attachment</span>
+                    {% endif %}
+                    {% else %}
+                    <span class="badge badge-sm bg-gradient-danger">No Attachment</span>
+                {% endif %}
                     </td>
 
                       

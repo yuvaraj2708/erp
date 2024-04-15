@@ -115,7 +115,9 @@ def edit_employee(request, employee_id):
         employee.nationality = request.POST.get('nationality')
         employee.operatorcard_expirydate = request.POST.get('operatorcard_expirydate')
         employee.date_of_releiving = request.POST.get('date_of_releiving')
-        employee.attachment = request.FILES.get('attachment')  # Use request.FILES for file uploads
+        employee.passportattachment = request.FILES.get('passportattachment')  # Use request.FILES for file uploads
+        employee.emiratesattachment = request.FILES.get('emiratesattachment')
+        employee.operatorcardattachment = request.FILES.get('operatorcardattachment')
         employee.save()
 
         return redirect('employee_list')
@@ -357,8 +359,9 @@ def add_employee(request):
         nationality = request.POST.get('nationality')
         operatorcard_expirydate = request.POST.get('operatorcard_expirydate')
         date_of_releiving = request.POST.get('date_of_releiving')
-        attachment = request.FILES.get('attachment')  # Use request.FILES for file uploads
-
+        passportattachment = request.FILES.get('passportattachment')  # Use request.FILES for file uploads
+        emiratesattachment = request.FILES.get('emiratesattachment')
+        operatorcardattachment = request.FILES.get('operatorcardattachment')
         # Create Employee object and save it
         employee = Employee(
             employeename=employeename,
@@ -369,7 +372,9 @@ def add_employee(request):
             nationality=nationality,
             operatorcard_expirydate=operatorcard_expirydate,
             date_of_releiving=date_of_releiving,
-            attachment=attachment
+            passportattachment=passportattachment,
+            emiratesattachment=emiratesattachment,
+            operatorcardattachment=operatorcardattachment
         )
         employee.save()
 
