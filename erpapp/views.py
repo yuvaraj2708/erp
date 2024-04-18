@@ -26,6 +26,9 @@ from datetime import timedelta,datetime
 from django.db.models import Q
 from django.utils import timezone
 from django.http import JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -102,6 +105,12 @@ def edit_building(request, building_id):
     return render(request, 'edit_building.html', {'form': form, 'clients': clients, 'suppliers': suppliers, 'building': building})    
 
 @login_required
+def delete_building(request, building_id):
+  building = Building.objects.get(id=building_id)
+  building.delete()
+  return HttpResponseRedirect(reverse('building_list'))
+
+@login_required
 def edit_employee(request, employee_id):
     employee = get_object_or_404(Employee, pk=employee_id)
 
@@ -157,6 +166,11 @@ def edit_client(request, client_id):
 
     return render(request, 'edit_client.html', {'client': client})
 
+def delete_client(request, client_id):
+  member = Client.objects.get(id=client_id)
+  member.delete()
+  return HttpResponseRedirect(reverse('client_list'))
+
 @login_required
 def edit_supplier(request, supplier_id):
     supplier = get_object_or_404(Supplier, id=supplier_id)
@@ -167,6 +181,9 @@ def edit_supplier(request, supplier_id):
         return redirect('supplier_list')
 
     return render(request, 'edit_supplier.html', {'supplier': supplier})
+
+
+
 
 @login_required
 def client_list(request):
@@ -275,6 +292,13 @@ def edit_project(request, project_id):
         form = ProjectForm(instance=project)
 
     return render(request, 'edit_project.html', {'form': form, 'project': project}) 
+
+
+@login_required
+def delete_project(request, project_id):
+  member = Project.objects.get(id=project_id)
+  member.delete()
+  return HttpResponseRedirect(reverse('project_list'))
 
 @login_required
 def edit_supplierproject(request, supplierproject_id):
@@ -437,6 +461,12 @@ def edit_salary(request, salary_id):
 
     return render(request, 'edit_salary.html', {'form': form, 'salary': salary})
 
+def delete_salary(request, salary_id):
+  member = Salary.objects.get(id=salary_id)
+  member.delete()
+  return HttpResponseRedirect(reverse('salary_list'))
+
+
 @login_required
 def add_allowance(request):
     if request.method == 'POST':
@@ -489,6 +519,11 @@ def edit_allowance(request, allowance_id):
         form = allowanceForm(instance=editallowance)
 
     return render(request, 'edit_allowance.html', {'form': form, 'editallowance': editallowance})
+
+def delete_allowance(request, allowance_id):
+  allowances = allowance.objects.get(id=allowance_id)
+  allowances.delete()
+  return HttpResponseRedirect(reverse('salary_list'))
 
 @login_required
 def add_attendance(request):
@@ -577,12 +612,30 @@ def edit_attendance(request, atttendance_id):
     return render(request, 'edit_attendance.html', {'attendance': attendance})
 
 @login_required
+def delete_attendance(request, attendance_id):
+  member = Attendance.objects.get(id=attendance_id)
+  member.delete()
+  return HttpResponseRedirect(reverse('attendance_list'))
+
+
+@login_required
+def delete_allowance(request, atttendance_id):
+  attendancelist = Attendance.objects.get(id=atttendance_id)
+  attendancelist.delete()
+  return HttpResponseRedirect(reverse('attendance_list'))
+
+
+@login_required
 def employee_list(request):
     employees = Employee.objects.all()
     today = date.today()
     return render(request, 'employee_list.html', {'employees': employees, 'today': today})
 
-
+@login_required
+def delete_employee(request, employee_id):
+  employee = Employee.objects.get(id=employee_id)
+  employee.delete()
+  return HttpResponseRedirect(reverse('attendance_list'))
    
 
 

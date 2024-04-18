@@ -284,6 +284,10 @@
                         <a href="{% url 'edit_client' client.id %}" class="btn btn-success">Edit</a>
                         </a>
                       </td>
+                      <td class="align-middle">
+                        <a href="{% url 'delete_client' client.id %}" class="btn btn-success">Delete</a>
+                        </a>
+                      </td>
                     </tr>
                     {% endfor %}
                   </tbody>

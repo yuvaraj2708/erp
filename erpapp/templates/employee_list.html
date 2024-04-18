@@ -342,6 +342,9 @@
                       <td>
                       <a href="{% url 'edit_employee' employee.id %}" class="btn btn-success">Edit</a>
                       </td>
+                      <td>
+                        <a href="{% url 'delete_employee' employee.id %}" class="btn btn-success">Delete</a>
+                        </td>
                     </tr>
                     {% endfor %}
                   </tbody>

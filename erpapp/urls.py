@@ -41,7 +41,17 @@ urlpatterns = [
     path('allowance_list/',allowance_list,name="allowance_list"),
     path('salary_list/',salary_list,name='salary_list'),
     path('edit_salary/<int:salary_id>/',edit_salary,name="edit_salary"),
-    path('edit_allowance/<int:allowance_id>',edit_allowance,name='edit_allowance')
+    path('edit_allowance/<int:allowance_id>',edit_allowance,name='edit_allowance'),
+    path('salary_list/<int:salary_id>/delete/', delete_salary, name='delete_salary'),
+    path('allowance_list/<int:allowance_id>/delete/', delete_allowance, name='delete_allowance'),
+    path('employee_list/<int:employee_id>/delete/', delete_employee, name='delete_employee'),
+    path('building_list/<int:building_id>/delete/', delete_building, name='delete_building'),
+    path('client_list/<int:client_id>/delete/', delete_client, name='delete_client'),
+    path('project_list/<int:project_id>/delete/', delete_project, name='delete_project'),
+    path('attendance_list/<int:attendance_id>/delete/', delete_attendance, name='delete_attendance')
+    
+    
+    
     # Add other URL patterns as needed
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

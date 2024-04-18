@@ -314,6 +314,9 @@
                       <td>
                       <a href="{% url 'edit_allowance' allowances.id %}" class="btn btn-success">Edit</a>
                       </td>
+                      <td>
+                        <a href="{% url 'delete_allowance' allowances.id %}" class="btn btn-success">Delete</a>
+                        </td>
                     </tr>
                     {% endfor %}
                     <div class="card-footer d-flex justify-content-end">
